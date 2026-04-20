@@ -1,0 +1,207 @@
+/* ── Root tokens ──────────────────────────────────────────────── */
+:root {
+  --amber:       #ffc107;
+  --amber-dark:  #e6a800;
+  --amber-dim:   rgba(255,193,7,0.12);
+  --dark:        #1c1a14;
+  --dark-2:      #2a2618;
+  --dark-3:      #3a3520;
+  --bg:          #fffdf4;
+  --border:      #e8e4d4;
+  --muted:       #7a7560;
+}
+
+/* ── Body & wrapper ───────────────────────────────────────────── */
+body,
+.wrapper {
+  background-color: #f5f2e8 !important;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;
+}
+
+/* ── Top navbar ───────────────────────────────────────────────── */
+.main-header.navbar {
+  background: var(--amber) !important;
+  border-bottom: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+}
+
+.main-header .navbar-nav .nav-link,
+.main-header .navbar-nav .nav-link i,
+.main-header .brand-text,
+.main-header .navbar-nav .nav-item > a {
+  color: var(--dark) !important;
+}
+
+.main-header .navbar-nav .nav-link:hover {
+  background: rgba(0,0,0,0.08) !important;
+  border-radius: 6px;
+}
+
+/* search bar in header */
+.main-header .form-control-navbar {
+  background: rgba(0,0,0,0.08) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: var(--dark) !important;
+}
+
+/* ── Brand / logo area ────────────────────────────────────────── */
+.brand-link {
+  background: var(--dark-2) !important;
+  border-bottom: 2px solid var(--amber) !important;
+}
+
+.brand-link:hover { background: var(--dark-3) !important; }
+
+/* ── Sidebar ──────────────────────────────────────────────────── */
+.main-sidebar,
+.main-sidebar .sidebar {
+  background: var(--dark-2) !important;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+  color: rgba(255,255,255,0.7) !important;
+  border-radius: 8px !important;
+  margin: 2px 8px !important;
+  transition: background 0.15s, color 0.15s !important;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover,
+.nav-sidebar .nav-item > .nav-link:focus {
+  background: rgba(255,193,7,0.15) !important;
+  color: var(--amber) !important;
+}
+
+.nav-sidebar .nav-item > .nav-link.active,
+.nav-sidebar .nav-item.menu-open > .nav-link {
+  background: var(--amber) !important;
+  color: var(--dark) !important;
+  font-weight: 600 !important;
+}
+
+.nav-sidebar .nav-item > .nav-link.active i,
+.nav-sidebar .nav-item.menu-open > .nav-link i {
+  color: var(--dark) !important;
+}
+
+.nav-sidebar .nav-item > .nav-link i {
+  color: rgba(255,255,255,0.45) !important;
+}
+
+.nav-sidebar .nav-treeview {
+  background: rgba(0,0,0,0.15) !important;
+  border-radius: 8px !important;
+  margin: 0 8px 4px !important;
+}
+
+.nav-sidebar .nav-treeview .nav-link {
+  color: rgba(255,255,255,0.6) !important;
+  border-radius: 6px !important;
+  margin: 1px 4px !important;
+}
+
+.nav-sidebar .nav-treeview .nav-link:hover,
+.nav-sidebar .nav-treeview .nav-link.active {
+  background: rgba(255,193,7,0.18) !important;
+  color: var(--amber) !important;
+}
+
+/* section headers in sidebar */
+.nav-sidebar .nav-header {
+  color: rgba(255,193,7,0.5) !important;
+  font-size: 10px !important;
+  letter-spacing: 1px !important;
+}
+
+/* ── Content area ─────────────────────────────────────────────── */
+.content-wrapper {
+  background: #f5f2e8 !important;
+}
+
+/* ── Cards & boxes ────────────────────────────────────────────── */
+.card {
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+.card-header {
+  background: var(--dark-2) !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--amber) !important;
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.card-header .card-title { color: #fff !important; }
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn-primary,
+.btn-warning {
+  background: var(--amber) !important;
+  border-color: var(--amber) !important;
+  color: var(--dark) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 10px rgba(255,193,7,0.35) !important;
+}
+
+.btn-primary:hover,
+.btn-warning:hover {
+  background: var(--amber-dark) !important;
+  border-color: var(--amber-dark) !important;
+  box-shadow: 0 4px 14px rgba(255,193,7,0.45) !important;
+}
+
+/* ── Breadcrumb ───────────────────────────────────────────────── */
+.content-header {
+  background: #fffdf4 !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.breadcrumb-item.active { color: var(--amber-dark) !important; }
+.breadcrumb-item a { color: var(--muted) !important; }
+
+/* ── Tables ───────────────────────────────────────────────────── */
+#result_list thead th,
+.table thead th {
+  background: var(--dark-2) !important;
+  color: #fff !important;
+  border-color: var(--dark-3) !important;
+}
+
+#result_list tbody tr:hover,
+.table tbody tr:hover {
+  background: var(--amber-dim) !important;
+}
+
+/* ── Links ────────────────────────────────────────────────────── */
+a { color: var(--amber-dark) !important; }
+a:hover { color: var(--dark) !important; }
+
+/* keep nav links unaffected */
+.main-header a,
+.main-sidebar a { color: inherit !important; }
+
+/* ── Input focus ──────────────────────────────────────────────── */
+.form-control:focus,
+.select2-container--default .select2-selection--single:focus {
+  border-color: var(--amber) !important;
+  box-shadow: 0 0 0 3px var(--amber-dim) !important;
+}
+
+/* ── Pagination ───────────────────────────────────────────────── */
+.paginator a,
+.paginator .this-page {
+  border-radius: 6px !important;
+}
+
+.paginator .this-page {
+  background: var(--amber) !important;
+  color: var(--dark) !important;
+  font-weight: 700 !important;
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.main-footer {
+  background: var(--dark-2) !important;
+  color: rgba(255,255,255,0.4) !important;
+  border-top: 2px solid var(--amber) !important;
+}

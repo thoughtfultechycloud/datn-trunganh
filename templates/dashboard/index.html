@@ -1,0 +1,549 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | AIBox</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber:      #ffc107;
+      --amber-dark: #e6a800;
+      --amber-dim:  rgba(255,193,7,0.12);
+      --dark:       #1c1a14;
+      --dark-2:     #2a2618;
+      --dark-3:     #3a3520;
+      --bg:         #f4f6f9;
+      --card:       #ffffff;
+      --border:     #e8e4d4;
+      --text:       #1c1a14;
+      --muted:      #6b7280;
+      --green:      #22c55e;
+      --red:        #ef4444;
+      --blue:       #3b82f6;
+      --purple:     #8b5cf6;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      background: var(--dark-2);
+      border-bottom: 2px solid var(--amber);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+
+    .topbar-logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      overflow: hidden; background: var(--amber);
+      box-shadow: 0 4px 12px rgba(255,193,7,0.4);
+    }
+    .topbar-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .topbar-title { font-size: 16px; font-weight: 700; color: #fff; }
+    .topbar-subtitle { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+    .btn-admin {
+      padding: 7px 16px;
+      background: var(--amber);
+      color: var(--dark);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-admin:hover { background: var(--amber-dark); }
+
+    /* ── Layout ── */
+    .page { padding: 28px 32px; max-width: 1400px; margin: 0 auto; }
+
+    .page-header { margin-bottom: 24px; }
+    .page-header h1 { font-size: 24px; font-weight: 800; color: var(--text); }
+    .page-header p  { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+    /* ── Stat cards ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .stat-icon.amber  { background: rgba(255,193,7,0.15);  }
+    .stat-icon.green  { background: rgba(34,197,94,0.12);  }
+    .stat-icon.blue   { background: rgba(59,130,246,0.12); }
+    .stat-icon.red    { background: rgba(239,68,68,0.12);  }
+
+    .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px; }
+    .stat-value { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1; }
+    .stat-change {
+      font-size: 12px; font-weight: 600; margin-top: 6px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .stat-change.up   { color: var(--green); }
+    .stat-change.down { color: var(--red);   }
+
+    /* ── Chart grid ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .charts-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .chart-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .chart-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; margin-bottom: 18px;
+    }
+
+    .chart-title { font-size: 15px; font-weight: 700; color: var(--text); }
+    .chart-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .badge {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; background: var(--amber-dim); color: var(--amber-dark);
+    }
+
+    .chart-wrap { position: relative; }
+
+    /* ── Table ── */
+    .table-card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .table-head {
+      padding: 18px 24px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table-head h3 { font-size: 15px; font-weight: 700; }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--dark-2); color: #fff;
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; padding: 11px 18px; text-align: left;
+    }
+    tbody tr { border-bottom: 1px solid #f3f4f6; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--amber-dim); }
+    tbody td { padding: 13px 18px; font-size: 13px; color: var(--text); }
+
+    .progress-bar-wrap {
+      background: #f3f4f6; border-radius: 99px; height: 7px; width: 120px;
+    }
+    .progress-bar {
+      height: 7px; border-radius: 99px;
+      background: linear-gradient(90deg, var(--amber), var(--amber-dark));
+    }
+    .progress-bar.over { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+    .status-pill {
+      display: inline-block; padding: 3px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 600;
+    }
+    .status-pill.active   { background: #dcfce7; color: #15803d; }
+    .status-pill.review   { background: #fef9c3; color: #854d0e; }
+    .status-pill.complete { background: #dbeafe; color: #1d4ed8; }
+    .status-pill.over     { background: #fee2e2; color: #b91c1c; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; padding: 24px;
+      font-size: 12px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid, .charts-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">
+      <img src="{% static 'images/logo.jpg' %}" alt="AIBox">
+    </div>
+    <div>
+      <div class="topbar-title">AIBox</div>
+      <div class="topbar-subtitle">Project Cost Management</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <a href="/admin/" class="btn-admin">⚙ Admin Panel</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Overview of project budgets and costs — FY 2025</p>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon amber">💰</div>
+      <div>
+        <div class="stat-label">Total Budget</div>
+        <div class="stat-value">$4.82M</div>
+        <div class="stat-change up">↑ 12% vs last year</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">✅</div>
+      <div>
+        <div class="stat-label">Total Spent</div>
+        <div class="stat-value">$3.17M</div>
+        <div class="stat-change up">↑ 8% vs last month</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">📁</div>
+      <div>
+        <div class="stat-label">Active Projects</div>
+        <div class="stat-value">14</div>
+        <div class="stat-change up">↑ 3 new this quarter</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red">⚠️</div>
+      <div>
+        <div class="stat-label">Over Budget</div>
+        <div class="stat-value">3</div>
+        <div class="stat-change down">↑ 1 from last month</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 1: Line + Donut -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Monthly Spending vs Budget</div>
+          <div class="chart-subtitle">Actual spend vs allocated budget per month</div>
+        </div>
+        <span class="badge">2025</span>
+      </div>
+      <div class="chart-wrap"><canvas id="lineChart" height="110"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Cost by Department</div>
+          <div class="chart-subtitle">Budget allocation breakdown</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="donutChart" height="200"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Row 2: Bar + Bar + Line -->
+  <div class="charts-grid-3">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Budget Utilization</div>
+          <div class="chart-subtitle">% used per project</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="barChart" height="200"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Cost Category Breakdown</div>
+          <div class="chart-subtitle">Labor, Materials, Overhead</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="stackedBar" height="200"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Cumulative Spend</div>
+          <div class="chart-subtitle">Running total vs plan</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="areaChart" height="200"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Project table -->
+  <div class="table-card">
+    <div class="table-head">
+      <h3>Project Cost Summary</h3>
+      <span class="badge">14 projects</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Manager</th>
+          <th>Budget</th>
+          <th>Spent</th>
+          <th>Utilization</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in projects %}
+        <tr>
+          <td><strong>{{ p.name }}</strong></td>
+          <td>{{ p.manager }}</td>
+          <td>${{ p.budget }}</td>
+          <td>${{ p.spent }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar-wrap">
+                <div class="progress-bar {% if p.pct > 100 %}over{% endif %}"
+                     style="width:{{ p.pct|floatformat:0 }}%;max-width:100%"></div>
+              </div>
+              <span style="font-size:12px;font-weight:600;color:{% if p.pct > 100 %}#b91c1c{% else %}var(--muted){% endif %}">
+                {{ p.pct|floatformat:0 }}%
+              </span>
+            </div>
+          </td>
+          <td><span class="status-pill {{ p.status_class }}">{{ p.status }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">© 2025 AIBox Company — Project Cost Management</div>
+
+<script>
+const amber      = '#ffc107';
+const amberDark  = '#e6a800';
+const amberDim   = 'rgba(255,193,7,0.15)';
+const dark2      = '#2a2618';
+const green      = '#22c55e';
+const blue       = '#3b82f6';
+const purple     = '#8b5cf6';
+const red        = '#ef4444';
+const orange     = '#f97316';
+
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// ── Line: Monthly Spending vs Budget ──────────────────────────────
+new Chart(document.getElementById('lineChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Budget',
+        data: [420,420,440,440,460,460,480,480,500,500,510,510],
+        borderColor: amberDark,
+        borderWidth: 2,
+        borderDash: [6,4],
+        pointRadius: 0,
+        fill: false,
+        tension: 0,
+      },
+      {
+        label: 'Actual Spend',
+        data: [310,345,390,408,430,415,445,460,488,502,490,510],
+        borderColor: amber,
+        backgroundColor: amberDim,
+        borderWidth: 2.5,
+        pointBackgroundColor: amber,
+        pointRadius: 4,
+        fill: true,
+        tension: 0.4,
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
+    scales: {
+      y: { grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── Donut: Cost by Department ─────────────────────────────────────
+new Chart(document.getElementById('donutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Engineering','Design','Marketing','Operations','R&D'],
+    datasets: [{
+      data: [38, 18, 14, 16, 14],
+      backgroundColor: [amber, blue, green, purple, orange],
+      borderWidth: 2,
+      borderColor: '#fff',
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 }, padding: 12 } }
+    }
+  }
+});
+
+// ── Bar: Budget Utilization ───────────────────────────────────────
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Alpha','Beta','Gamma','Delta','Epsilon','Zeta','Eta'],
+    datasets: [{
+      label: 'Utilization %',
+      data: [82, 107, 65, 91, 114, 48, 73],
+      backgroundColor: ctx => {
+        const v = ctx.raw;
+        return v > 100 ? 'rgba(239,68,68,0.75)' : 'rgba(255,193,7,0.8)';
+      },
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        grid: { color: '#f0ede4' },
+        ticks: { callback: v => v + '%' },
+        max: 130,
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── Stacked Bar: Cost Category ────────────────────────────────────
+new Chart(document.getElementById('stackedBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Q1','Q2','Q3','Q4'],
+    datasets: [
+      { label: 'Labor',     data: [380, 420, 445, 410], backgroundColor: amber,  borderRadius: 4 },
+      { label: 'Materials', data: [180, 210, 195, 220], backgroundColor: blue,   borderRadius: 4 },
+      { label: 'Overhead',  data: [95,  105, 110, 100], backgroundColor: purple, borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } }
+    }
+  }
+});
+
+// ── Area: Cumulative Spend ────────────────────────────────────────
+new Chart(document.getElementById('areaChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Planned',
+        data: [400,800,1240,1680,2140,2600,3080,3560,4060,4560,5070,5580],
+        borderColor: 'rgba(107,114,128,0.6)',
+        borderWidth: 2,
+        borderDash: [5,4],
+        pointRadius: 0,
+        fill: false,
+        tension: 0,
+      },
+      {
+        label: 'Actual',
+        data: [310,655,1045,1453,1883,2298,2743,3203,3691,4193,4683,5193],
+        borderColor: amber,
+        backgroundColor: 'rgba(255,193,7,0.12)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: amber,
+        fill: true,
+        tension: 0.4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
+    scales: {
+      y: { grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
