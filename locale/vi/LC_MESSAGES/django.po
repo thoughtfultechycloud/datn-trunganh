@@ -1,0 +1,170 @@
+# Vietnamese translations for AIBox Project Cost Management
+msgid ""
+msgstr ""
+"Project-Id-Version: AIBox 1.0\n"
+"POT-Creation-Date: 2026-05-02 04:22+0000\n"
+"PO-Revision-Date: 2026-05-02 04:22+0000\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: core/settings.py:157
+msgid "English"
+msgstr "Tiếng Anh"
+
+#: core/settings.py:158
+msgid "Vietnamese"
+msgstr "Tiếng Việt"
+
+#: templates/account/login.html:7 templates/account/login.html:247
+#: templates/account/password_reset_from_key_done.html:64
+#: templates/admin/login.html:7 templates/admin/login.html:264
+msgid "Sign In"
+msgstr "Đăng Nhập"
+
+#: templates/account/login.html:220 templates/admin/login.html:234
+msgid "Welcome back"
+msgstr "Chào mừng trở lại"
+
+#: templates/account/login.html:221 templates/admin/login.html:235
+msgid "Sign in to your account"
+msgstr "Đăng nhập vào tài khoản của bạn"
+
+#: templates/account/login.html:245 templates/admin/login.html:261
+msgid "Forgot password?"
+msgstr "Quên mật khẩu?"
+
+#: templates/account/login.html:250 templates/admin/login.html:267
+msgid "or continue with"
+msgstr "hoặc tiếp tục với"
+
+#: templates/account/login.html:259 templates/admin/login.html:276
+msgid "Sign in with Google"
+msgstr "Đăng nhập với Google"
+
+#: templates/account/login.html:265 templates/admin/login.html:282
+msgid "Don't have an account?"
+msgstr "Chưa có tài khoản?"
+
+#: templates/account/login.html:266 templates/admin/login.html:283
+msgid "Sign up"
+msgstr "Đăng ký"
+
+#: templates/account/password_reset.html:7
+msgid "Forgot Password"
+msgstr "Quên Mật Khẩu"
+
+#: templates/account/password_reset.html:93
+msgid "Forgot Password?"
+msgstr "Quên mật khẩu?"
+
+#: templates/account/password_reset.html:97
+msgid "Enter your email address and we'll send you a link to reset your password."
+msgstr "Nhập địa chỉ email của bạn, chúng tôi sẽ gửi link đặt lại mật khẩu."
+
+#: templates/account/password_reset.html:112
+msgid "Send Reset Link"
+msgstr "Gửi Link Đặt Lại"
+
+#: templates/account/password_reset.html:116
+msgid "Remember your password?"
+msgstr "Nhớ mật khẩu rồi?"
+
+#: templates/account/password_reset.html:117 templates/account/signup.html:206
+msgid "Sign in"
+msgstr "Đăng nhập"
+
+#: templates/account/password_reset_done.html:7
+#: templates/account/password_reset_done.html:59
+msgid "Check Your Email"
+msgstr "Kiểm Tra Email"
+
+#: templates/account/password_reset_done.html:64
+msgid "Email sent!"
+msgstr "Đã gửi email!"
+
+#: templates/account/password_reset_done.html:65
+msgid "We've sent a password reset link to your email address. Please check your inbox and follow the instructions."
+msgstr "Chúng tôi đã gửi link đặt lại mật khẩu đến email của bạn. Vui lòng kiểm tra hộp thư và làm theo hướng dẫn."
+
+#: templates/account/password_reset_done.html:66
+#: templates/account/password_reset_from_key.html:113
+msgid "Back to Sign In"
+msgstr "Quay lại Đăng Nhập"
+
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key.html:83
+#: templates/account/password_reset_from_key.html:108
+msgid "Set New Password"
+msgstr "Đặt Mật Khẩu Mới"
+
+#: templates/account/password_reset_from_key.html:89
+msgid "This password reset link is invalid or has expired."
+msgstr "Link đặt lại mật khẩu này không hợp lệ hoặc đã hết hạn."
+
+#: templates/account/password_reset_from_key.html:91
+msgid "Request a new one"
+msgstr "Yêu cầu link mới"
+
+#: templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_reset_from_key_done.html:57
+msgid "Password Changed"
+msgstr "Đổi Mật Khẩu Thành Công"
+
+#: templates/account/password_reset_from_key_done.html:62
+msgid "All done!"
+msgstr "Hoàn tất!"
+
+#: templates/account/password_reset_from_key_done.html:63
+msgid "Your password has been changed successfully. You can now sign in with your new password."
+msgstr "Mật khẩu của bạn đã được thay đổi thành công. Bạn có thể đăng nhập bằng mật khẩu mới."
+
+#: templates/account/signup.html:7 templates/account/signup.html:200
+msgid "Sign Up"
+msgstr "Đăng Ký"
+
+#: templates/account/signup.html:176
+msgid "Create account"
+msgstr "Tạo tài khoản"
+
+#: templates/account/signup.html:177
+msgid "Fill in the details below to get started"
+msgstr "Điền thông tin bên dưới để bắt đầu"
+
+#: templates/account/signup.html:205
+msgid "Already have an account?"
+msgstr "Đã có tài khoản?"
+
+#: templates/admin/login.html:7
+msgid "Administration"
+msgstr "Quản Trị"
+
+#: templates/admin/login.html:242
+msgid "Invalid username or password. Please try again."
+msgstr "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại."
+
+#: templates/admin/login.html:251
+msgid "Username or Email"
+msgstr "Tên đăng nhập hoặc Email"
+
+#: templates/admin/login.html:258
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: templates/admin/logout.html:7
+msgid "Đã đăng xuất"
+msgstr "Đã Đăng Xuất"
+
+#: templates/admin/logout.html:158
+msgid "You have been signed out"
+msgstr "Bạn đã đăng xuất thành công"
+
+#: templates/admin/logout.html:159
+msgid "Thanks for using AIBox. See you next time!"
+msgstr "Cảm ơn bạn đã sử dụng AIBox. Hẹn gặp lại!"
+
+#: templates/admin/logout.html:160
+msgid "Sign in again"
+msgstr "Đăng nhập lại"

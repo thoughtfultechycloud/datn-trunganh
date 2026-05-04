@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'main',
+    'voucher',
+    'budget',
+    'report',
 ]
 
 SITE_ID = 1
@@ -86,6 +90,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,7 +153,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('vi', _('Vietnamese')),
+]
+
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 TIME_ZONE = 'UTC'
 
@@ -181,18 +195,63 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
         {"name": "Dashboard", "url": "/dashboard/", "permissions": ["auth.view_user"]},
     ],
+    "custom_css": "css/navbar_tweak.css",
     "hide_apps": ["account", "socialaccount", "sites"],
+    "order_with_respect_to": [
+        "main",
+        "main.project",
+        "main.costcategory",
+        "main.partner",
+        "main.bank",
+        "main.companybankaccount",
+        "main.accountcategory",
+        "main.partneropeningbalance",
+        "main.accountopeningbalance",
+        "budget",
+        "budget.projectbudget",
+        "voucher",
+        "voucher.contract",
+        "voucher.paymentschedule",
+        "voucher.acceptancerecord",
+        "voucher.invoice",
+        "voucher.invoicelineitem",
+        "voucher.voucher",
+        "voucher.voucherlineitem",
+        "voucher.banknotice",
+        "report",
+        "auth",
+        "auth.user",
+        "auth.group",
+    ],
     "show_sidebar": True,
-    "language_chooser": False,
+    "navigation_expanded": False,
+    "language_chooser": True,
     "icons": {
-        "auth": "fas fa-shield-alt",
-        "auth.user": "fas fa-user-circle",
-        "auth.group": "fas fa-users",
-        "authentication": "fas fa-users-cog",
-        "authentication.user": "fas fa-user",
-        "authentication.customer": "fas fa-users",
-        "hanotoky.menu": "fas fa-bars",
-        "hanotoky.config": "fas fa-cog",
+        "auth":                        "fas fa-shield-alt",
+        "auth.user":                   "fas fa-user-circle",
+        "auth.group":                  "fas fa-users",
+        "main":                        "fas fa-layer-group",
+        "main.accountcategory":        "fas fa-book",
+        "main.partner":                "fas fa-handshake",
+        "main.bank":                   "fas fa-university",
+        "main.companybankaccount":     "fas fa-credit-card",
+        "main.project":                "fas fa-project-diagram",
+        "main.costcategory":           "fas fa-tags",
+        "main.partneropeningbalance":  "fas fa-balance-scale",
+        "main.accountopeningbalance":  "fas fa-coins",
+        "voucher":                      "fas fa-file-invoice",
+        "voucher.contract":            "fas fa-file-contract",
+        "voucher.paymentschedule":     "fas fa-calendar-check",
+        "voucher.acceptancerecord":    "fas fa-clipboard-check",
+        "voucher.invoice":             "fas fa-file-invoice-dollar",
+        "voucher.invoicelineitem":     "fas fa-list-ul",
+        "voucher.voucher":             "fas fa-receipt",
+        "voucher.voucherlineitem":     "fas fa-list-ul",
+        "voucher.banknotice":          "fas fa-university",
+        "budget":                      "fas fa-wallet",
+        "budget.projectbudget":        "fas fa-chart-pie",
+        "report":                      "fas fa-chart-line",
+        "report.debtreport":           "fas fa-chart-bar",
     },
 }
 JAZZMIN_UI_TWEAKS = {

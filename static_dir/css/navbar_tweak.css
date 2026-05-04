@@ -1,0 +1,12 @@
+/* Child menu item đang active */
+.nav-sidebar .nav-treeview .nav-link.active,
+.nav-sidebar .nav-treeview .nav-item.active > .nav-link {
+    background-color: #ffc107 !important;
+    color: #1c1a14 !important;
+    font-weight: 600;
+}
+
+.nav-sidebar .nav-treeview .nav-link.active i,
+.nav-sidebar .nav-treeview .nav-item.active > .nav-link i {
+    color: #1c1a14 !important;
+}
