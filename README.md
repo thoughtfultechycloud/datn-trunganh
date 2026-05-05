@@ -71,6 +71,8 @@ Access the admin at: http://127.0.0.1:8000/admin/
 
 ---
 
+## Setup - docker
+docker-compose up 
 ## Project Structure
 
 ```
