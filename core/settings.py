@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&7q7l)50*+)efg-l#co3!lx-yqh77^@!fzaa)xeb4t^*4g9oz0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'main',
     'voucher',
-    'budget',
+    'opening',
+    'ledger',
     'report',
+    'info',
 ]
 
 SITE_ID = 1
@@ -205,19 +207,22 @@ JAZZMIN_SETTINGS = {
         "main.companybankaccount",
         "main.accountcategory",
         "main.partneropeningbalance",
-        "main.accountopeningbalance",
-        "budget",
-        "budget.projectbudget",
+        "opening",
+        "opening.sodudauki",
         "voucher",
-        "voucher.contract",
-        "voucher.paymentschedule",
-        "voucher.acceptancerecord",
         "voucher.invoice",
         "voucher.invoicelineitem",
-        "voucher.voucher",
-        "voucher.voucherlineitem",
-        "voucher.banknotice",
+        "voucher.phieuthu",
+        "voucher.phieuchi",
+        "voucher.giaybaono",
+        "voucher.giaybaoco",
+        "ledger",
+        "ledger.socaitk",
+        "ledger.sochitiettk",
         "report",
+        "info",
+        "info.ttcongty",
+        "info.hdsd",
         "auth",
         "auth.user",
         "auth.group",
@@ -236,20 +241,23 @@ JAZZMIN_SETTINGS = {
         "main.companybankaccount":     "fas fa-credit-card",
         "main.project":                "fas fa-project-diagram",
         "main.partneropeningbalance":  "fas fa-balance-scale",
-        "main.accountopeningbalance":  "fas fa-coins",
         "voucher":                      "fas fa-file-invoice",
-        "voucher.contract":            "fas fa-file-contract",
-        "voucher.paymentschedule":     "fas fa-calendar-check",
-        "voucher.acceptancerecord":    "fas fa-clipboard-check",
         "voucher.invoice":             "fas fa-file-invoice-dollar",
         "voucher.invoicelineitem":     "fas fa-list-ul",
-        "voucher.voucher":             "fas fa-receipt",
-        "voucher.voucherlineitem":     "fas fa-list-ul",
-        "voucher.banknotice":          "fas fa-university",
-        "budget":                      "fas fa-wallet",
-        "budget.projectbudget":        "fas fa-chart-pie",
+        "voucher.phieuthu":            "fas fa-arrow-circle-down",
+        "voucher.phieuchi":            "fas fa-arrow-circle-up",
+        "voucher.giaybaono":           "fas fa-arrow-circle-left",
+        "voucher.giaybaoco":           "fas fa-arrow-circle-right",
+        "opening":                     "fas fa-calendar-alt",
+        "opening.sodudauki":           "fas fa-coins",
+        "ledger":                      "fas fa-book-open",
+        "ledger.socaitk":              "fas fa-book",
+        "ledger.sochitiettk":          "fas fa-list-alt",
         "report":                      "fas fa-chart-line",
         "report.debtreport":           "fas fa-chart-bar",
+        "info":                        "fas fa-info-circle",
+        "info.ttcongty":               "fas fa-building",
+        "info.hdsd":                   "fas fa-question-circle",
     },
 }
 JAZZMIN_UI_TWEAKS = {

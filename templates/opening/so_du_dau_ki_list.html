@@ -1,0 +1,91 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="modal fade" id="editBalanceModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cập nhật số dư đầu kỳ</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form id="editBalanceForm">
+          {% csrf_token %}
+          <input type="hidden" id="editPk" name="pk">
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label">Số dư Nợ đầu kỳ</label>
+            <div class="col-sm-7">
+              <input type="number" step="0.01" min="0" class="form-control" id="editDebit" name="debit_balance" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label">Số dư Có đầu kỳ</label>
+            <div class="col-sm-7">
+              <input type="number" step="0.01" min="0" class="form-control" id="editCredit" name="credit_balance" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-warning" id="saveBalanceBtn">
+          <i class="fas fa-save"></i> Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+{{ block.super }}
+<style>
+  #editBalanceModal { z-index: 99999; }
+  #editBalanceModal + .modal-backdrop { z-index: 99998; }
+</style>
+<script>
+$(document).ready(function () {
+  /* Di chuyển modal ra body để tránh lỗi z-index của AdminLTE */
+  $('body').append($('#editBalanceModal').detach());
+});
+
+function openEditBalance(pk, debit, credit) {
+  document.getElementById('editPk').value = pk;
+  document.getElementById('editDebit').value = debit;
+  document.getElementById('editCredit').value = credit;
+  $('#editBalanceModal').modal('show');
+}
+
+$(document).ready(function () {
+  $('#saveBalanceBtn').on('click', function () {
+    var form = document.getElementById('editBalanceForm');
+    var data = new FormData(form);
+    var pk = data.get('pk');
+
+    $.ajax({
+      url: '/opening/update/' + pk + '/',
+      type: 'POST',
+      data: {
+        pk: pk,
+        debit_balance: data.get('debit_balance'),
+        credit_balance: data.get('credit_balance'),
+        csrfmiddlewaretoken: data.get('csrfmiddlewaretoken')
+      },
+      success: function (res) {
+        if (res.ok) {
+          $('#editBalanceModal').modal('hide');
+          location.reload();
+        } else {
+          alert('Lỗi: ' + res.error);
+        }
+      },
+      error: function () {
+        alert('Có lỗi xảy ra, vui lòng thử lại.');
+      }
+    });
+  });
+});
+</script>
+{% endblock %}

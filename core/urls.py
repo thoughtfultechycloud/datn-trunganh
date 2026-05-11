@@ -27,6 +27,10 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('dashboard/', dashboard, name='dashboard'),
+    path('opening/', include('opening.urls')),
+    path('voucher/', include('voucher.urls')),
     path('report/', include('report.urls')),
+    path('ledger/', include('ledger.urls')),
+    path('info/',   include('info.urls')),
     path('', RedirectView.as_view(url='/admin/', permanent=False)),
 ]

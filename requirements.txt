@@ -6,6 +6,7 @@ charset-normalizer==3.4.7
 cryptography==46.0.7
 Django==4.2.30
 django-allauth==65.14.3
+docxtpl==0.20.2
 django-jazzmin==2.5.0
 idna==3.11
 pycparser==2.23

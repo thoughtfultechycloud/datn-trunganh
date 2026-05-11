@@ -1,72 +1,59 @@
 from django.contrib import admin
 
-from .models import AcceptanceRecord, BankNotice, Contract, Invoice, InvoiceLineItem, PaymentSchedule, Voucher, VoucherLineItem
-
-
-class PaymentScheduleInline(admin.TabularInline):
-    model  = PaymentSchedule
-    extra  = 1
-    fields = ('order', 'description', 'completion_pct', 'amount', 'due_date', 'actual_date', 'status')
-
-
-@admin.register(Contract)
-class ContractAdmin(admin.ModelAdmin):
-    list_display  = ('contract_number', 'contract_type', 'partner', 'project', 'sign_date', 'effective_date', 'expiry_date', 'contract_value', 'status')
-    list_filter   = ('contract_type', 'status', 'project')
-    search_fields = ('contract_number', 'partner__partner_name', 'project__project_name')
-    ordering      = ('-sign_date',)
-    radio_fields  = {'contract_type': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
-    inlines       = [PaymentScheduleInline]
-
-
-@admin.register(AcceptanceRecord)
-class AcceptanceRecordAdmin(admin.ModelAdmin):
-    list_display  = ('record_number', 'contract', 'acceptance_date', 'acceptance_value', 'completion_pct', 'status')
-    list_filter   = ('status', 'contract__project')
-    search_fields = ('record_number', 'contract__contract_number', 'signer_a', 'signer_b')
-    ordering      = ('-acceptance_date',)
-    radio_fields  = {'status': admin.HORIZONTAL}
-
-
-class InvoiceLineItemInline(admin.TabularInline):
-    model           = InvoiceLineItem
-    extra           = 1
-    readonly_fields = ('amount',)
-    fields          = ('item_name', 'unit', 'quantity', 'unit_price', 'tax_rate', 'amount', 'cost_category')
+from .models import GiayBaoCo, GiayBaoNo, Invoice, PhieuChi, PhieuThu
 
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display    = ('invoice_number', 'invoice_type', 'invoice_date', 'partner', 'project', 'pre_tax_amount', 'tax_rate', 'tax_amount', 'total_amount', 'status')
-    list_filter     = ('invoice_type', 'status', 'project')
-    search_fields   = ('invoice_number', 'partner__partner_name')
-    ordering        = ('-invoice_date',)
-    readonly_fields = ('tax_amount', 'total_amount')
-    radio_fields    = {'invoice_type': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
-    inlines         = [InvoiceLineItemInline]
+    list_display  = ('invoice_number', 'invoice_date', 'partner', 'project', 'total_amount')
+    list_filter   = ('project',)
+    search_fields = ('invoice_number', 'partner__partner_name')
 
 
-class VoucherLineItemInline(admin.TabularInline):
-    model  = VoucherLineItem
-    extra  = 1
-    fields = ('amount', 'description')
+class BaseVoucherAdmin(admin.ModelAdmin):
+    list_display  = ('voucher_number', 'voucher_date', 'partner', 'project', 'amount', 'created_by')
+    list_filter   = ('project',)
+    search_fields = ('voucher_number', 'partner__partner_name', 'reason', 'created_by')
+    exclude       = ('voucher_type',)
+
+    def save_model(self, request, obj, form, change):
+        obj.voucher_type = self._voucher_type
+        super().save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(voucher_type=self._voucher_type)
 
 
-@admin.register(Voucher)
-class VoucherAdmin(admin.ModelAdmin):
-    list_display    = ('voucher_number', 'voucher_type', 'voucher_date', 'partner', 'project', 'amount', 'payment_method', 'status', 'approved_by')
-    list_filter     = ('voucher_type', 'status', 'payment_method', 'project')
-    search_fields   = ('voucher_number', 'partner__partner_name', 'reason')
-    ordering        = ('-voucher_date',)
-    readonly_fields = ('approved_at',)
-    radio_fields    = {'voucher_type': admin.HORIZONTAL, 'payment_method': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
-    inlines         = [VoucherLineItemInline]
+@admin.register(PhieuThu)
+class PhieuThuAdmin(BaseVoucherAdmin):
+    _voucher_type = 'PT'
 
 
-@admin.register(BankNotice)
-class BankNoticeAdmin(admin.ModelAdmin):
-    list_display  = ('notice_number', 'notice_type', 'notice_date', 'partner', 'project', 'amount', 'exchange_rate', 'from_bank_account', 'to_bank_account')
-    list_filter   = ('notice_type', 'project')
+@admin.register(PhieuChi)
+class PhieuChiAdmin(BaseVoucherAdmin):
+    _voucher_type        = 'PC'
+    change_form_template = 'voucher/phieuchi_change_form.html'
+
+
+class BaseBankNoticeAdmin(admin.ModelAdmin):
+    list_display  = ('notice_number', 'notice_date', 'partner', 'project', 'amount', 'exchange_rate', 'from_bank_account', 'to_bank_account')
+    list_filter   = ('project',)
     search_fields = ('notice_number', 'partner__partner_name', 'description', 'to_bank_account')
-    ordering      = ('-notice_date',)
-    radio_fields  = {'notice_type': admin.HORIZONTAL}
+    exclude       = ('notice_type',)
+
+    def save_model(self, request, obj, form, change):
+        obj.notice_type = self._notice_type
+        super().save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(notice_type=self._notice_type)
+
+
+@admin.register(GiayBaoNo)
+class GiayBaoNoAdmin(BaseBankNoticeAdmin):
+    _notice_type = 'GBN'
+
+
+@admin.register(GiayBaoCo)
+class GiayBaoCoAdmin(BaseBankNoticeAdmin):
+    _notice_type = 'GBC'

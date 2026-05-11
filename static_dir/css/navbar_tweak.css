@@ -1,3 +1,12 @@
+/* Hide History button on change form */
+.historylink,
+a.historylink,
+.object-tools .historylink,
+.object-tools a[href$="/history/"],
+.object-tools li:last-child a[href*="history"] {
+    display: none !important;
+}
+
 /* Child menu item đang active */
 .nav-sidebar .nav-treeview .nav-link.active,
 .nav-sidebar .nav-treeview .nav-item.active > .nav-link {

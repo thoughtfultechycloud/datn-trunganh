@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class BudgetConfig(AppConfig):
+class LedgerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'budget'
-    verbose_name = 'Ngân sách'
+    name = 'ledger'
+    verbose_name = 'Sổ sách'
