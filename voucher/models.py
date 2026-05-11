@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from main.models import AccountCategory, CompanyBankAccount, CostCategory, Partner, Project
+from main.models import AccountCategory, CompanyBankAccount, Partner, Project
 
 
 class Contract(models.Model):
@@ -71,8 +71,7 @@ class AcceptanceRecord(models.Model):
     ]
 
     record_number = models.CharField(max_length=15, primary_key=True, verbose_name='Số biên bản nghiệm thu')
-    contract      = models.ForeignKey(Contract, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Hợp đồng liên quan')
-    cost_category    = models.ForeignKey(CostCategory, on_delete=models.PROTECT, verbose_name='Hạng mục nghiệm thu')
+    contract         = models.ForeignKey(Contract, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Hợp đồng liên quan')
     acceptance_date  = models.DateField(verbose_name='Ngày nghiệm thu')
     acceptance_value = models.DecimalField(max_digits=18, decimal_places=2, verbose_name='Giá trị nghiệm thu (VNĐ)')
     completion_pct   = models.DecimalField(max_digits=5, decimal_places=2, default=0, verbose_name='% khối lượng hoàn thành')
@@ -135,7 +134,6 @@ class InvoiceLineItem(models.Model):
     unit_price    = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Đơn giá chưa VAT')
     tax_rate      = models.DecimalField(max_digits=5, decimal_places=2, default=10, verbose_name='Thuế suất (%)')
     amount        = models.DecimalField(max_digits=18, decimal_places=2, editable=False, default=0, verbose_name='Thành tiền')
-    cost_category = models.ForeignKey(CostCategory, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Hạng mục chi phí')
 
     class Meta:
         verbose_name        = 'Chi tiết hóa đơn'
@@ -192,7 +190,6 @@ class Voucher(models.Model):
 
 class VoucherLineItem(models.Model):
     voucher       = models.ForeignKey(Voucher, on_delete=models.CASCADE, related_name='line_items', verbose_name='Phiếu thu/chi')
-    cost_category = models.ForeignKey(CostCategory, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Hạng mục chi phí')
     amount        = models.DecimalField(max_digits=18, decimal_places=2, verbose_name='Số tiền')
     description   = models.CharField(max_length=200, blank=True, verbose_name='Diễn giải')
 

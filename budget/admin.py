@@ -6,11 +6,12 @@ from .models import ProjectBudget
 
 @admin.register(ProjectBudget)
 class ProjectBudgetAdmin(admin.ModelAdmin):
-    list_display  = ('project', 'cost_category', 'period', 'planned_amount', 'actual_amount', 'status', 'approved_by')
+    list_display  = ('project', 'period', 'planned_amount', 'actual_amount', 'status', 'approved_by')
     list_filter   = ('status', 'project', 'period')
-    search_fields = ('project__project_name', 'cost_category__category_name', 'period')
-    ordering      = ('project', 'period', 'cost_category')
+    search_fields = ('project__project_name', 'period')
+    ordering      = ('project', 'period')
     readonly_fields = ('actual_amount',)
+    radio_fields    = {'status': admin.HORIZONTAL}
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'approved_by':

@@ -24,12 +24,42 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f4f6f9;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      position: relative;
+      background: var(--dark-2);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,193,7,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,193,7,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 90%, rgba(255,193,7,0.08) 0%, transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,193,7,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,193,7,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
     }
 
     .card {
@@ -59,22 +89,21 @@
     }
 
     .card-header .logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 14px;
+      width: 160px;
+      height: 60px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
-      box-shadow: 0 8px 24px rgba(255,193,7,0.4);
       overflow: hidden;
-      background: var(--amber);
+      background: transparent;
     }
 
     .card-header .logo img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .card-header h1 {
@@ -230,7 +259,7 @@
 
 <div class="card">
   <div class="card-header">
-    <div class="logo"><img src="{% static 'images/logo.jpg' %}" alt="Logo"></div>
+    <div class="logo"><img src="{% static 'images/logo.svg' %}" alt="Logo"></div>
     <h1>{% trans "Welcome back" %}</h1>
     <p>{% trans "Sign in to your account" %}</p>
   </div>

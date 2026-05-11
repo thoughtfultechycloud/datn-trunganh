@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from main.models import CostCategory, Project
+from main.models import Project
 
 
 class ProjectBudget(models.Model):
@@ -11,7 +11,6 @@ class ProjectBudget(models.Model):
         ('Da_duyet',   'Đã duyệt'),
     ]
 
-    cost_category  = models.ForeignKey(CostCategory, on_delete=models.PROTECT, verbose_name='Hạng mục chi phí')
     project        = models.ForeignKey(Project, on_delete=models.PROTECT, verbose_name='Dự án')
     period         = models.CharField(max_length=10, verbose_name='Kỳ kế hoạch')
     planned_amount = models.DecimalField(max_digits=18, decimal_places=2, verbose_name='Ngân sách kế hoạch')
@@ -24,11 +23,11 @@ class ProjectBudget(models.Model):
     class Meta:
         verbose_name        = 'Kế hoạch ngân sách'
         verbose_name_plural = 'Kế hoạch ngân sách dự án'
-        ordering            = ['project', 'period', 'cost_category']
-        unique_together     = [('cost_category', 'project', 'period')]
+        ordering            = ['project', 'period']
+        unique_together     = [('project', 'period')]
 
     def __str__(self):
-        return f'{self.project} / {self.cost_category} / {self.period}'
+        return f'{self.project} / {self.period}'
 
     @property
     def variance(self):

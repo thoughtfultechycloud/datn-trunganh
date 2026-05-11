@@ -18,8 +18,8 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from core.views import dashboard
 
-admin.site.site_header = "AIBox — Project Cost Management"
-admin.site.site_title = "AIBox Project Cost"
+admin.site.site_header = "AIBox - Quản lí chi phí dự án"
+admin.site.site_title = "AIBox - Quản lí chi phí dự án"
 admin.site.index_title = "Dashboard"
 
 urlpatterns = [

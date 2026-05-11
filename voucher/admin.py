@@ -15,15 +15,17 @@ class ContractAdmin(admin.ModelAdmin):
     list_filter   = ('contract_type', 'status', 'project')
     search_fields = ('contract_number', 'partner__partner_name', 'project__project_name')
     ordering      = ('-sign_date',)
+    radio_fields  = {'contract_type': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
     inlines       = [PaymentScheduleInline]
 
 
 @admin.register(AcceptanceRecord)
 class AcceptanceRecordAdmin(admin.ModelAdmin):
-    list_display  = ('record_number', 'contract', 'cost_category', 'acceptance_date', 'acceptance_value', 'completion_pct', 'status')
-    list_filter   = ('status', 'cost_category__project')
+    list_display  = ('record_number', 'contract', 'acceptance_date', 'acceptance_value', 'completion_pct', 'status')
+    list_filter   = ('status', 'contract__project')
     search_fields = ('record_number', 'contract__contract_number', 'signer_a', 'signer_b')
     ordering      = ('-acceptance_date',)
+    radio_fields  = {'status': admin.HORIZONTAL}
 
 
 class InvoiceLineItemInline(admin.TabularInline):
@@ -40,23 +42,25 @@ class InvoiceAdmin(admin.ModelAdmin):
     search_fields   = ('invoice_number', 'partner__partner_name')
     ordering        = ('-invoice_date',)
     readonly_fields = ('tax_amount', 'total_amount')
+    radio_fields    = {'invoice_type': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
     inlines         = [InvoiceLineItemInline]
 
 
 class VoucherLineItemInline(admin.TabularInline):
     model  = VoucherLineItem
     extra  = 1
-    fields = ('cost_category', 'amount', 'description')
+    fields = ('amount', 'description')
 
 
 @admin.register(Voucher)
 class VoucherAdmin(admin.ModelAdmin):
-    list_display  = ('voucher_number', 'voucher_type', 'voucher_date', 'partner', 'project', 'amount', 'payment_method', 'status', 'approved_by')
-    list_filter   = ('voucher_type', 'status', 'payment_method', 'project')
-    search_fields = ('voucher_number', 'partner__partner_name', 'reason')
-    ordering      = ('-voucher_date',)
+    list_display    = ('voucher_number', 'voucher_type', 'voucher_date', 'partner', 'project', 'amount', 'payment_method', 'status', 'approved_by')
+    list_filter     = ('voucher_type', 'status', 'payment_method', 'project')
+    search_fields   = ('voucher_number', 'partner__partner_name', 'reason')
+    ordering        = ('-voucher_date',)
     readonly_fields = ('approved_at',)
-    inlines       = [VoucherLineItemInline]
+    radio_fields    = {'voucher_type': admin.HORIZONTAL, 'payment_method': admin.HORIZONTAL, 'status': admin.HORIZONTAL}
+    inlines         = [VoucherLineItemInline]
 
 
 @admin.register(BankNotice)
@@ -65,3 +69,4 @@ class BankNoticeAdmin(admin.ModelAdmin):
     list_filter   = ('notice_type', 'project')
     search_fields = ('notice_number', 'partner__partner_name', 'description', 'to_bank_account')
     ordering      = ('-notice_date',)
+    radio_fields  = {'notice_type': admin.HORIZONTAL}

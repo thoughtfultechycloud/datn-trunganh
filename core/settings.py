@@ -186,11 +186,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static_dir']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
-    "site_logo": "images/logo.jpg",
-    "site_icon": "images/logo.jpg",
-    "login_logo": "images/logo.jpg",
+    "site_logo": None,
+    "site_icon": "images/logo.svg",
+    "login_logo": "images/logo.svg",
     "site_brand": "AIBox",
-    "welcome_sign": "AIBox — Project Cost Management",
+    "welcome_sign": "AIBox - Quản lí chi phí dự án",
     "copyright": "AIBox Company",
     "topmenu_links": [
         {"name": "Dashboard", "url": "/dashboard/", "permissions": ["auth.view_user"]},
@@ -200,7 +200,6 @@ JAZZMIN_SETTINGS = {
     "order_with_respect_to": [
         "main",
         "main.project",
-        "main.costcategory",
         "main.partner",
         "main.bank",
         "main.companybankaccount",
@@ -236,7 +235,6 @@ JAZZMIN_SETTINGS = {
         "main.bank":                   "fas fa-university",
         "main.companybankaccount":     "fas fa-credit-card",
         "main.project":                "fas fa-project-diagram",
-        "main.costcategory":           "fas fa-tags",
         "main.partneropeningbalance":  "fas fa-balance-scale",
         "main.accountopeningbalance":  "fas fa-coins",
         "voucher":                      "fas fa-file-invoice",

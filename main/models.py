@@ -114,28 +114,6 @@ class Project(models.Model):
         return f'{self.project_code} — {self.project_name}'
 
 
-class CostCategory(models.Model):
-    TYPE_CHOICES = [
-        ('Nhan_cong', 'Nhân công'),
-        ('Vat_tu',    'Vật tư'),
-        ('Thiet_bi',  'Thiết bị'),
-        ('Gian_tiep', 'Gián tiếp'),
-    ]
-
-    category_code = models.CharField(max_length=10, primary_key=True, verbose_name='Mã hạng mục')
-    category_name = models.CharField(max_length=150, verbose_name='Tên hạng mục chi phí')
-    project       = models.ForeignKey(Project, on_delete=models.PROTECT, verbose_name='Dự án')
-    cost_type     = models.CharField(max_length=30, choices=TYPE_CHOICES, verbose_name='Loại chi phí')
-    description   = models.CharField(max_length=300, blank=True, verbose_name='Mô tả')
-    order         = models.SmallIntegerField(default=0, verbose_name='Thứ tự hiển thị')
-
-    class Meta:
-        verbose_name        = 'Hạng mục chi phí'
-        verbose_name_plural = 'Hạng mục chi phí'
-        ordering            = ['project', 'order', 'category_code']
-
-    def __str__(self):
-        return f'{self.category_code} — {self.category_name}'
 
 
 class PartnerOpeningBalance(models.Model):

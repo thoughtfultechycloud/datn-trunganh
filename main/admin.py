@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import AccountCategory, AccountOpeningBalance, Partner, PartnerOpeningBalance, Bank, CompanyBankAccount, Project, CostCategory
+from .models import AccountCategory, AccountOpeningBalance, Partner, PartnerOpeningBalance, Bank, CompanyBankAccount, Project
 
 
 @admin.register(AccountCategory)
@@ -19,6 +19,7 @@ class PartnerAdmin(admin.ModelAdmin):
     search_fields = ('partner_code', 'partner_name', 'tax_code', 'email', 'phone')
     list_editable = ('is_active',)
     ordering      = ('partner_code',)
+    radio_fields  = {'partner_type': admin.HORIZONTAL}
 
 
 @admin.register(Bank)
@@ -37,6 +38,7 @@ class CompanyBankAccountAdmin(admin.ModelAdmin):
     search_fields = ('account_number', 'account_holder')
     list_editable = ('is_active',)
     ordering      = ('account_number',)
+    radio_fields  = {'currency': admin.HORIZONTAL}
 
 
 @admin.register(Project)
@@ -44,19 +46,13 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display  = ('project_code', 'project_name', 'investor', 'manager', 'start_date', 'end_date', 'contract_value', 'status')
     list_filter   = ('status', 'investor')
     search_fields = ('project_code', 'project_name', 'location')
+    radio_fields  = {'status': admin.HORIZONTAL}
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'manager':
             kwargs['queryset'] = User.objects.filter(groups__name='Trưởng dự án').distinct()
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-
-@admin.register(CostCategory)
-class CostCategoryAdmin(admin.ModelAdmin):
-    list_display  = ('category_code', 'category_name', 'project', 'cost_type', 'order')
-    list_filter   = ('cost_type', 'project')
-    search_fields = ('category_code', 'category_name')
-    ordering      = ('project', 'order', 'category_code')
 
 
 @admin.register(PartnerOpeningBalance)
