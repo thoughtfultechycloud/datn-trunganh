@@ -36,11 +36,15 @@
 
   {% if show_result %}
   <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">
+    <div class="card-header d-flex align-items-center">
+      <h3 class="card-title mb-0 mr-auto">
         Bảng kê chi tiền — Dự án: {{ project_obj }}
         <small class="text-muted ml-2">{{ tu_ngay }} → {{ den_ngay }}</small>
       </h3>
+      <a href="{% url 'report_xuat_bang_ke_chi_tien' %}?project={{ selected_project }}&tu_ngay={{ tu_ngay }}&den_ngay={{ den_ngay }}"
+         class="btn btn-sm btn-secondary ml-auto">
+        <i class="fas fa-file-word"></i> Xuất
+      </a>
     </div>
     <div class="card-body p-0">
       <table class="table table-bordered table-hover table-sm mb-0">

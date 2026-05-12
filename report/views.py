@@ -1,8 +1,11 @@
 from decimal import Decimal
 
+import io
+
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from main.models import AccountCategory, PartnerOpeningBalance, Project
@@ -176,3 +179,45 @@ def get_bang_ke_chi_tien_context(request):
 def bang_ke_chi_tien(request):
     ctx = {**admin.site.each_context(request), **get_bang_ke_chi_tien_context(request)}
     return render(request, 'report/bang_ke_chi_tien.html', ctx)
+
+
+@staff_member_required
+def xuat_bang_ke_chi_tien(request):
+    from docxtpl import DocxTemplate
+
+    data = get_bang_ke_chi_tien_context(request)
+    if not data.get('show_result'):
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('Thiếu tham số lọc.')
+
+    rows = [
+        {
+            'stt':            r['stt'],
+            'so_phieu':       r['voucher_number'],
+            'ngay':           r['voucher_date'].strftime('%d/%m/%Y'),
+            'doi_tac':        r['partner'],
+            'ly_do':          r['reason'],
+            'tk_no':          r['debit_account'],
+            'tk_co':          r['credit_account'],
+            'so_tien':        f"{r['amount']:,.0f}".replace(',', '.'),
+        }
+        for r in data['rows']
+    ]
+
+    tpl = DocxTemplate('templates/file_templates/template_bang_ke_chi_tien.docx')
+    tpl.render({
+        'du_an':     str(data['project_obj']) if data['project_obj'] else '',
+        'tu_ngay':   data['tu_ngay'],
+        'den_ngay':  data['den_ngay'],
+        'rows':      rows,
+        'tong_tien': f"{data['tong_tien']:,.0f}".replace(',', '.'),
+    })
+
+    buf = io.BytesIO()
+    tpl.save(buf)
+    buf.seek(0)
+
+    response = HttpResponse(buf, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    project_id = request.GET.get('project', 'unknown')
+    response['Content-Disposition'] = f'attachment; filename="bang_ke_chi_tien_{project_id}.docx"'
+    return response
