@@ -81,8 +81,12 @@
 
   {# ── Transaction table ── #}
   <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Phát sinh trong kỳ — TK {{ selected_account }}</h3>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="card-title mb-0 mr-auto">Phát sinh trong kỳ — TK {{ selected_account }}</h3>
+      <a href="{% url 'ledger_xuat_so_cai' %}?account={{ selected_account }}&tu_ngay={{ tu_ngay }}&den_ngay={{ den_ngay }}"
+         class="btn btn-sm btn-secondary">
+        <i class="fas fa-file-word"></i> Xuất
+      </a>
     </div>
     <div class="card-body p-0">
       <table class="table table-bordered table-hover table-sm mb-0">

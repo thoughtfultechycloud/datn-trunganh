@@ -1,8 +1,10 @@
+import io
 from decimal import Decimal
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from main.models import AccountCategory, AccountOpeningBalance
@@ -25,6 +27,11 @@ def get_so_cai_context(request):
 
     if not (account_id and tu_ngay and den_ngay):
         return ctx
+
+    try:
+        ctx['account_name'] = AccountCategory.objects.get(account_code=account_id).account_name
+    except AccountCategory.DoesNotExist:
+        ctx['account_name'] = account_id
 
     # --- Số dư đầu kỳ ---
     try:
@@ -178,3 +185,106 @@ def so_cai_tk(request):
 def so_chi_tiet_tk(request):
     ctx = {**admin.site.each_context(request), **get_so_chi_tiet_context(request)}
     return render(request, 'ledger/so_chi_tiet_tk.html', ctx)
+
+
+def _fmt(value):
+    try:
+        return f"{int(value):,}".replace(',', '.')
+    except (TypeError, ValueError):
+        return ''
+
+
+@staff_member_required
+def xuat_so_cai_tk(request):
+    from docxtpl import DocxTemplate
+
+    data = get_so_cai_context(request)
+    if not data.get('show_result'):
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('Thiếu tham số lọc.')
+
+    account_id = data['selected_account']
+    rows = [
+        {
+            'ngay':         r['ngay'].strftime('%d/%m/%Y'),
+            'so_ct':        r['so_ct'],
+            'dien_giai':    r['dien_giai'],
+            'doi_tuong':    r['doi_tuong'],
+            'tk_doi_ung':   r['tk_doi_ung'],
+            'ps_no':        _fmt(r['phat_sinh_no']) if r['phat_sinh_no'] else '',
+            'ps_co':        _fmt(r['phat_sinh_co']) if r['phat_sinh_co'] else '',
+        }
+        for r in data['rows']
+    ]
+
+    tpl = DocxTemplate('templates/file_templates/template_so_cai_tai_khoan.docx')
+    tpl.render({
+        'tai_khoan': account_id,
+        'ten_tai_khoan': data['account_name'],
+        'tu_ngay':   data['tu_ngay'],
+        'den_ngay':  data['den_ngay'],
+        'no_dau':    _fmt(data['no_dau']),
+        'co_dau':    _fmt(data['co_dau']),
+        'rows':      rows,
+        'tong_no':   _fmt(data['tong_no']),
+        'tong_co':   _fmt(data['tong_co']),
+        'no_cuoi':   _fmt(data['no_cuoi']),
+        'co_cuoi':   _fmt(data['co_cuoi']),
+    })
+
+    buf = io.BytesIO()
+    tpl.save(buf)
+    buf.seek(0)
+
+    response = HttpResponse(buf, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="so_cai_tk_{account_id}.docx"'
+    return response
+
+
+@staff_member_required
+def xuat_so_chi_tiet_tk(request):
+    from docxtpl import DocxTemplate
+
+    data = get_so_chi_tiet_context(request)
+    if not data.get('show_result'):
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('Thiếu tham số lọc.')
+
+    account_id = data['selected_account']
+    rows = [
+        {
+            'ngay':       r['ngay'].strftime('%d/%m/%Y'),
+            'so_ct':      r['so_ct'],
+            'dien_giai':  r['dien_giai'],
+            'doi_tuong':  r['doi_tuong'],
+            'tk_doi_ung': r['tk_doi_ung'],
+            'ps_no':      _fmt(r['phat_sinh_no']) if r['phat_sinh_no'] else '',
+            'ps_co':      _fmt(r['phat_sinh_co']) if r['phat_sinh_co'] else '',
+            'ton':        _fmt(r['ton']),
+            'ton_loai':   r['ton_loai'],
+        }
+        for r in data['rows']
+    ]
+
+    tpl = DocxTemplate('templates/file_templates/template_so_chi_tiet_tai_khoan.docx')
+    tpl.render({
+        'tai_khoan':     account_id,
+        'ten_tai_khoan': data.get('account_name', account_id),
+        'tu_ngay':       data['tu_ngay'],
+        'den_ngay':      data['den_ngay'],
+        'no_dau':        _fmt(data['no_dau']),
+        'co_dau':        _fmt(data['co_dau']),
+        'rows':          rows,
+        'tong_no':       _fmt(data['tong_no']),
+        'tong_co':       _fmt(data['tong_co']),
+        'no_cuoi':       _fmt(data['no_cuoi']),
+        'co_cuoi':       _fmt(data['co_cuoi']),
+    })
+
+    buf = io.BytesIO()
+    tpl.save(buf)
+    buf.seek(0)
+
+    response = HttpResponse(buf, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="so_chi_tiet_tk_{account_id}.docx"'
+    return response

@@ -68,16 +68,5 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(PartnerOpeningBalance)
-class PartnerOpeningBalanceAdmin(admin.ModelAdmin):
-    list_display  = ('partner', 'account', 'project', 'period', 'debit_balance', 'credit_balance', 'entry_date', 'entered_by')
-    list_filter   = ('period', 'project', 'account')
-    search_fields = ('partner__partner_name', 'account__account_code', 'period')
-    readonly_fields = ('entry_date',)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == 'entered_by':
-            kwargs['queryset'] = User.objects.filter(is_staff=True)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 

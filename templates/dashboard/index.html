@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | AIBox</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
+<style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -237,313 +236,54 @@
   </div>
 </div>
 
-<div class="page">
+<div class="page" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 56px - 57px);">
 
-  <!-- Page header -->
-  <div class="page-header">
-    <h1>Dashboard</h1>
-    <p>Overview of project budgets and costs — FY 2025</p>
-  </div>
+  <div style="text-align:center;max-width:600px;width:100%;">
+    <div style="background:var(--card);border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:48px 52px;">
 
-  <!-- Stat cards -->
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon amber">💰</div>
-      <div>
-        <div class="stat-label">Total Budget</div>
-        <div class="stat-value">$4.82M</div>
-        <div class="stat-change up">↑ 12% vs last year</div>
+      <div style="margin-bottom:28px;">
+        <img src="{% static 'images/logo.svg' %}" alt="AIBox" style="height:72px;object-fit:contain;">
       </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon green">✅</div>
-      <div>
-        <div class="stat-label">Total Spent</div>
-        <div class="stat-value">$3.17M</div>
-        <div class="stat-change up">↑ 8% vs last month</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon blue">📁</div>
-      <div>
-        <div class="stat-label">Active Projects</div>
-        <div class="stat-value">14</div>
-        <div class="stat-change up">↑ 3 new this quarter</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon red">⚠️</div>
-      <div>
-        <div class="stat-label">Over Budget</div>
-        <div class="stat-value">3</div>
-        <div class="stat-change down">↑ 1 from last month</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Row 1: Line + Donut -->
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Monthly Spending vs Budget</div>
-          <div class="chart-subtitle">Actual spend vs allocated budget per month</div>
+      <div style="display:inline-block;background:rgba(255,193,7,0.12);border:1px solid rgba(255,193,7,0.3);border-radius:8px;padding:6px 18px;font-size:12px;font-weight:600;color:var(--amber-dark);letter-spacing:0.5px;margin-bottom:24px;">
+        ĐỒ ÁN TỐT NGHIỆP
+      </div>
+
+      <h1 style="font-size:22px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:8px;">
+        Phần mềm quản lí chi phí dự án
+      </h1>
+      <p style="font-size:15px;font-weight:600;color:var(--amber-dark);margin-bottom:36px;">
+        Công ty cổ phần công nghệ AIBox
+      </p>
+
+      <div style="border-top:1px solid var(--border);padding-top:28px;text-align:left;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:12px;align-items:baseline;">
+          <span style="font-size:13px;color:var(--muted);font-weight:500;min-width:180px;">Sinh viên thực hiện</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text);">Nguyễn Thị Trung Anh</span>
         </div>
-        <span class="badge">2025</span>
-      </div>
-      <div class="chart-wrap"><canvas id="lineChart" height="110"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Cost by Department</div>
-          <div class="chart-subtitle">Budget allocation breakdown</div>
+        <div style="display:flex;gap:12px;align-items:baseline;">
+          <span style="font-size:13px;color:var(--muted);font-weight:500;min-width:180px;">Lớp</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text);">...</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:baseline;">
+          <span style="font-size:13px;color:var(--muted);font-weight:500;min-width:180px;">Giáo viên hướng dẫn</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text);">........</span>
         </div>
       </div>
-      <div class="chart-wrap"><canvas id="donutChart" height="200"></canvas></div>
-    </div>
-  </div>
 
-  <!-- Row 2: Bar + Bar + Line -->
-  <div class="charts-grid-3">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Budget Utilization</div>
-          <div class="chart-subtitle">% used per project</div>
-        </div>
+      <div style="margin-top:36px;">
+        <a href="/admin/" style="display:inline-block;padding:11px 32px;background:var(--amber);color:var(--dark);border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(255,193,7,0.35);transition:background 0.2s;"
+           onmouseover="this.style.background='var(--amber-dark)'" onmouseout="this.style.background='var(--amber)'">
+          Vào hệ thống
+        </a>
       </div>
-      <div class="chart-wrap"><canvas id="barChart" height="200"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Cost Category Breakdown</div>
-          <div class="chart-subtitle">Labor, Materials, Overhead</div>
-        </div>
-      </div>
-      <div class="chart-wrap"><canvas id="stackedBar" height="200"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Cumulative Spend</div>
-          <div class="chart-subtitle">Running total vs plan</div>
-        </div>
-      </div>
-      <div class="chart-wrap"><canvas id="areaChart" height="200"></canvas></div>
-    </div>
-  </div>
 
-  <!-- Project table -->
-  <div class="table-card">
-    <div class="table-head">
-      <h3>Project Cost Summary</h3>
-      <span class="badge">14 projects</span>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Project</th>
-          <th>Manager</th>
-          <th>Budget</th>
-          <th>Spent</th>
-          <th>Utilization</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for p in projects %}
-        <tr>
-          <td><strong>{{ p.name }}</strong></td>
-          <td>{{ p.manager }}</td>
-          <td>${{ p.budget }}</td>
-          <td>${{ p.spent }}</td>
-          <td>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar-wrap">
-                <div class="progress-bar {% if p.pct > 100 %}over{% endif %}"
-                     style="width:{{ p.pct|floatformat:0 }}%;max-width:100%"></div>
-              </div>
-              <span style="font-size:12px;font-weight:600;color:{% if p.pct > 100 %}#b91c1c{% else %}var(--muted){% endif %}">
-                {{ p.pct|floatformat:0 }}%
-              </span>
-            </div>
-          </td>
-          <td><span class="status-pill {{ p.status_class }}">{{ p.status }}</span></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
   </div>
 
 </div>
 
-<div class="footer">© 2025 AIBox Company — Project Cost Management</div>
-
-<script>
-const amber      = '#ffc107';
-const amberDark  = '#e6a800';
-const amberDim   = 'rgba(255,193,7,0.15)';
-const dark2      = '#2a2618';
-const green      = '#22c55e';
-const blue       = '#3b82f6';
-const purple     = '#8b5cf6';
-const red        = '#ef4444';
-const orange     = '#f97316';
-
-const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-// ── Line: Monthly Spending vs Budget ──────────────────────────────
-new Chart(document.getElementById('lineChart'), {
-  type: 'line',
-  data: {
-    labels: months,
-    datasets: [
-      {
-        label: 'Budget',
-        data: [420,420,440,440,460,460,480,480,500,500,510,510],
-        borderColor: amberDark,
-        borderWidth: 2,
-        borderDash: [6,4],
-        pointRadius: 0,
-        fill: false,
-        tension: 0,
-      },
-      {
-        label: 'Actual Spend',
-        data: [310,345,390,408,430,415,445,460,488,502,490,510],
-        borderColor: amber,
-        backgroundColor: amberDim,
-        borderWidth: 2.5,
-        pointBackgroundColor: amber,
-        pointRadius: 4,
-        fill: true,
-        tension: 0.4,
-      },
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
-    scales: {
-      y: { grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-// ── Donut: Cost by Department ─────────────────────────────────────
-new Chart(document.getElementById('donutChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Engineering','Design','Marketing','Operations','R&D'],
-    datasets: [{
-      data: [38, 18, 14, 16, 14],
-      backgroundColor: [amber, blue, green, purple, orange],
-      borderWidth: 2,
-      borderColor: '#fff',
-    }]
-  },
-  options: {
-    responsive: true,
-    cutout: '65%',
-    plugins: {
-      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 }, padding: 12 } }
-    }
-  }
-});
-
-// ── Bar: Budget Utilization ───────────────────────────────────────
-new Chart(document.getElementById('barChart'), {
-  type: 'bar',
-  data: {
-    labels: ['Alpha','Beta','Gamma','Delta','Epsilon','Zeta','Eta'],
-    datasets: [{
-      label: 'Utilization %',
-      data: [82, 107, 65, 91, 114, 48, 73],
-      backgroundColor: ctx => {
-        const v = ctx.raw;
-        return v > 100 ? 'rgba(239,68,68,0.75)' : 'rgba(255,193,7,0.8)';
-      },
-      borderRadius: 6,
-      borderSkipped: false,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { display: false } },
-    scales: {
-      y: {
-        grid: { color: '#f0ede4' },
-        ticks: { callback: v => v + '%' },
-        max: 130,
-      },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-// ── Stacked Bar: Cost Category ────────────────────────────────────
-new Chart(document.getElementById('stackedBar'), {
-  type: 'bar',
-  data: {
-    labels: ['Q1','Q2','Q3','Q4'],
-    datasets: [
-      { label: 'Labor',     data: [380, 420, 445, 410], backgroundColor: amber,  borderRadius: 4 },
-      { label: 'Materials', data: [180, 210, 195, 220], backgroundColor: blue,   borderRadius: 4 },
-      { label: 'Overhead',  data: [95,  105, 110, 100], backgroundColor: purple, borderRadius: 4 },
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
-    scales: {
-      x: { stacked: true, grid: { display: false } },
-      y: { stacked: true, grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } }
-    }
-  }
-});
-
-// ── Area: Cumulative Spend ────────────────────────────────────────
-new Chart(document.getElementById('areaChart'), {
-  type: 'line',
-  data: {
-    labels: months,
-    datasets: [
-      {
-        label: 'Planned',
-        data: [400,800,1240,1680,2140,2600,3080,3560,4060,4560,5070,5580],
-        borderColor: 'rgba(107,114,128,0.6)',
-        borderWidth: 2,
-        borderDash: [5,4],
-        pointRadius: 0,
-        fill: false,
-        tension: 0,
-      },
-      {
-        label: 'Actual',
-        data: [310,655,1045,1453,1883,2298,2743,3203,3691,4193,4683,5193],
-        borderColor: amber,
-        backgroundColor: 'rgba(255,193,7,0.12)',
-        borderWidth: 2.5,
-        pointRadius: 3,
-        pointBackgroundColor: amber,
-        fill: true,
-        tension: 0.4,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } } },
-    scales: {
-      y: { grid: { color: '#f0ede4' }, ticks: { callback: v => '$'+v+'K' } },
-      x: { grid: { display: false } }
-    }
-  }
-});
-</script>
+<div class="footer">© 2025 AIBox Company — Phần mềm quản lí chi phí dự án</div>
 
 </body>
 </html>
