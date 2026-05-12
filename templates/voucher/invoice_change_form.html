@@ -1,0 +1,64 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+  #vat-amount-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 8px 14px;
+    margin-top: 6px;
+    display: none;
+    font-size: 0.95em;
+  }
+  #vat-amount-box .vat-val { font-weight: 700; color: #d63031; }
+</style>
+{% endblock %}
+
+{% block extrajs %}
+{{ block.super }}
+<script>
+(function ($) {
+  function fmt(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function updateVat() {
+    var checked = $('#id_vat_10').is(':checked');
+    var $box = $('#vat-amount-box');
+
+    if (checked) {
+      $('#id_vat_debit_account').val('1331').trigger('change');
+      $('#id_vat_credit_account').val('331').trigger('change');
+
+      var total = parseFloat($('#id_total_amount').val().replace(/,/g, '')) || 0;
+      $('#vat-amount-val').text(fmt(total * 0.1) + ' đ');
+      $box.show();
+    } else {
+      $('#id_vat_debit_account').val('').trigger('change');
+      $('#id_vat_credit_account').val('').trigger('change');
+      $box.hide();
+    }
+  }
+
+  $(document).ready(function () {
+    /* inject info box after the vat_10 checkbox row */
+    var $vatRow = $('#id_vat_10').closest('.form-row, .field-vat_10');
+    $vatRow.after(
+      '<div id="vat-amount-box">' +
+        'Tiền thuế GTGT 10%: <span class="vat-val" id="vat-amount-val"></span>' +
+        ' &nbsp;—&nbsp; TK Nợ: <strong>1331</strong> &nbsp;/&nbsp; TK Có: <strong>331</strong>' +
+      '</div>'
+    );
+
+    $('#id_vat_10').on('change', updateVat);
+    $('#id_total_amount').on('input change', function () {
+      if ($('#id_vat_10').is(':checked')) updateVat();
+    });
+
+    updateVat();
+  });
+}(django.jQuery));
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+<div class="col-12">
+  <div class="card card-primary card-outline">
+    <div class="card-body">
+      <form method="get" class="form-inline flex-wrap" style="gap:12px;">
+        <div class="form-group">
+          <label class="mr-2">Tài khoản</label>
+          <select name="account" class="form-control form-control-sm" style="min-width:220px;" required>
+            <option value="">-- Chọn tài khoản --</option>
+            {% for acc in accounts %}
+            <option value="{{ acc.account_code }}" {% if acc.account_code == selected_account %}selected{% endif %}>
+              {{ acc.account_code }} — {{ acc.account_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="mr-2">Từ ngày</label>
+          <input type="date" name="tu_ngay" class="form-control form-control-sm" value="{{ tu_ngay }}" required>
+        </div>
+        <div class="form-group">
+          <label class="mr-2">Đến ngày</label>
+          <input type="date" name="den_ngay" class="form-control form-control-sm" value="{{ den_ngay }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+          <i class="fas fa-search"></i> Xem
+        </button>
+      </form>
+    </div>
+  </div>

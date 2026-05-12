@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Báo cáo nợ phải trả{% endblock %}
+{% block content_title %}<h1>Báo cáo nợ phải trả</h1>{% endblock %}
+
+{% block content %}
+{% include "report/_bao_cao_no_form.html" %}
+{% if show_result %}{% include "report/_bao_cao_no_table.html" %}{% endif %}
+{% endblock %}

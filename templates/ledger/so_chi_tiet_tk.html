@@ -2,16 +2,135 @@
 {% load i18n %}
 
 {% block title %}Sổ chi tiết TK{% endblock %}
-
 {% block content_title %}<h1>Sổ chi tiết TK</h1>{% endblock %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Sổ chi tiết TK</h3>
-    </div>
+<div class="col-12">
+
+  {# ── Filter form ── #}
+  <div class="card card-primary card-outline">
     <div class="card-body">
-        <p class="text-muted">Chức năng đang được phát triển.</p>
+      <form method="get" class="form-inline flex-wrap" style="gap:12px;">
+        <div class="form-group">
+          <label class="mr-2">Tài khoản</label>
+          <select name="account" class="form-control form-control-sm" style="min-width:220px;" required>
+            <option value="">-- Chọn tài khoản --</option>
+            {% for acc in accounts %}
+            <option value="{{ acc.account_code }}" {% if acc.account_code == selected_account %}selected{% endif %}>
+              {{ acc.account_code }} — {{ acc.account_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="mr-2">Từ ngày</label>
+          <input type="date" name="tu_ngay" class="form-control form-control-sm" value="{{ tu_ngay }}" required>
+        </div>
+        <div class="form-group">
+          <label class="mr-2">Đến ngày</label>
+          <input type="date" name="den_ngay" class="form-control form-control-sm" value="{{ den_ngay }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+          <i class="fas fa-search"></i> Xem
+        </button>
+      </form>
     </div>
+  </div>
+
+  {% if show_result %}
+
+  {# ── Summary ── #}
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="info-box shadow-sm">
+        <span class="info-box-icon bg-info"><i class="fas fa-arrow-right"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số dư Nợ đầu kỳ</span>
+          <span class="info-box-number">{{ no_dau|floatformat:0 }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="info-box shadow-sm">
+        <span class="info-box-icon bg-warning"><i class="fas fa-arrow-left"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số dư Có đầu kỳ</span>
+          <span class="info-box-number">{{ co_dau|floatformat:0 }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="info-box shadow-sm">
+        <span class="info-box-icon bg-success"><i class="fas fa-arrow-right"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số dư Nợ cuối kỳ</span>
+          <span class="info-box-number">{{ no_cuoi|floatformat:0 }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="info-box shadow-sm">
+        <span class="info-box-icon bg-danger"><i class="fas fa-arrow-left"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Số dư Có cuối kỳ</span>
+          <span class="info-box-number">{{ co_cuoi|floatformat:0 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# ── Transaction table ── #}
+  <div class="card card-outline card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Phát sinh trong kỳ — TK {{ selected_account }}</h3>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-bordered table-hover table-sm mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th>Ngày CT</th>
+            <th>Số CT</th>
+            <th>Diễn giải</th>
+            <th>Đối tượng</th>
+            <th>TK đối ứng</th>
+            <th class="text-right">Phát sinh Nợ</th>
+            <th class="text-right">Phát sinh Có</th>
+            <th class="text-right">Tồn</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+          <tr>
+            <td>{{ row.ngay|date:"d/m/Y" }}</td>
+            <td>{{ row.so_ct }}</td>
+            <td>{{ row.dien_giai }}</td>
+            <td>{{ row.doi_tuong }}</td>
+            <td>{{ row.tk_doi_ung }}</td>
+            <td class="text-right">{% if row.phat_sinh_no %}{{ row.phat_sinh_no|floatformat:0 }}{% endif %}</td>
+            <td class="text-right">{% if row.phat_sinh_co %}{{ row.phat_sinh_co|floatformat:0 }}{% endif %}</td>
+            <td class="text-right">
+              {{ row.ton|floatformat:0 }}
+              <small class="{% if row.ton_loai == 'Nợ' %}text-danger{% else %}text-success{% endif %}">
+                {{ row.ton_loai }}
+              </small>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="text-center text-muted">Không có phát sinh trong kỳ</td></tr>
+          {% endfor %}
+        </tbody>
+        <tfoot class="font-weight-bold">
+          <tr class="table-secondary">
+            <td colspan="5">Tổng phát sinh</td>
+            <td class="text-right">{{ tong_no|floatformat:0 }}</td>
+            <td class="text-right">{{ tong_co|floatformat:0 }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  {% endif %}
 </div>
 {% endblock %}

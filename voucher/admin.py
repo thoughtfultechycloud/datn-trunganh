@@ -5,9 +5,24 @@ from .models import GiayBaoCo, GiayBaoNo, Invoice, PhieuChi, PhieuThu
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display  = ('invoice_number', 'invoice_date', 'partner', 'project', 'total_amount')
-    list_filter   = ('project',)
-    search_fields = ('invoice_number', 'partner__partner_name')
+    change_form_template = 'voucher/invoice_change_form.html'
+    list_display  = ('invoice_number', 'invoice_date', 'partner', 'project', 'total_amount', 'vat_10')
+    list_filter   = ('project', 'vat_10')
+    search_fields = ('invoice_number', 'partner__partner_name', 'tax_code')
+    fieldsets = (
+        ('Thông tin hóa đơn', {
+            'fields': ('invoice_number', 'invoice_date', 'project'),
+        }),
+        ('Nhà cung cấp', {
+            'fields': ('partner', 'tax_code', 'address', 'contact_person'),
+        }),
+        ('Nội dung & Giá trị', {
+            'fields': ('description', 'total_amount', 'debit_account', 'credit_account'),
+        }),
+        ('Giá trị gia tăng 10%', {
+            'fields': ('vat_10', 'vat_debit_account', 'vat_credit_account'),
+        }),
+    )
 
 
 class BaseVoucherAdmin(admin.ModelAdmin):
@@ -26,7 +41,8 @@ class BaseVoucherAdmin(admin.ModelAdmin):
 
 @admin.register(PhieuThu)
 class PhieuThuAdmin(BaseVoucherAdmin):
-    _voucher_type = 'PT'
+    _voucher_type        = 'PT'
+    change_form_template = 'voucher/phieuthu_change_form.html'
 
 
 @admin.register(PhieuChi)

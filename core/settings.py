@@ -42,11 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'main',
     'voucher',
     'opening',
@@ -55,39 +50,6 @@ INSTALLED_APPS = [
     'info',
 ]
 
-SITE_ID = 1
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-        'OAUTH_PKCE_ENABLED': True,
-        'APP': {
-            'client_id': '',     # Add your Google OAuth client ID
-            'secret': '',        # Add your Google OAuth secret
-        },
-    }
-}
-
-# ── Email (SMTP) ──────────────────────────────────────────────────────────────
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER     = 'skt.smile1999@gmail.com'
-EMAIL_HOST_PASSWORD = 'cpge xdgl vhov uflp'
-DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
-
-ACCOUNT_PREVENT_ENUMERATION = False
-ACCOUNT_LOGIN_METHODS = {'email'}
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-LOGIN_REDIRECT_URL = '/admin/'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -198,7 +159,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Dashboard", "url": "/dashboard/", "permissions": ["auth.view_user"]},
     ],
     "custom_css": "css/navbar_tweak.css",
-    "hide_apps": ["account", "socialaccount", "sites"],
+    "hide_apps": [],
     "order_with_respect_to": [
         "main",
         "main.project",
@@ -220,6 +181,9 @@ JAZZMIN_SETTINGS = {
         "ledger.socaitk",
         "ledger.sochitiettk",
         "report",
+        "report.baocaonopt",
+        "report.baocaonoptra",
+        "report.bangkechitien",
         "info",
         "info.ttcongty",
         "info.hdsd",
@@ -253,8 +217,10 @@ JAZZMIN_SETTINGS = {
         "ledger":                      "fas fa-book-open",
         "ledger.socaitk":              "fas fa-book",
         "ledger.sochitiettk":          "fas fa-list-alt",
-        "report":                      "fas fa-chart-line",
-        "report.debtreport":           "fas fa-chart-bar",
+        "report":                       "fas fa-chart-line",
+        "report.baocaonopt":            "fas fa-file-invoice",
+        "report.baocaonoptra":          "fas fa-file-invoice-dollar",
+        "report.bangkechitien":         "fas fa-money-bill-wave",
         "info":                        "fas fa-info-circle",
         "info.ttcongty":               "fas fa-building",
         "info.hdsd":                   "fas fa-question-circle",
