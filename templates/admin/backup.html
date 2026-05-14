@@ -1,0 +1,241 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Sao lưu dữ liệu{% endblock %}
+
+{% block content_title %}<h1>Sao lưu dữ liệu</h1>{% endblock %}
+
+{% block extrastyle %}
+<style>
+  #content { display:flex; flex-direction:column; }
+  #content-main { flex:1; display:flex; flex-direction:column; }
+  .breadcrumbs { text-align:right; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Trang chủ' %}</a>
+  &rsaquo; Sao lưu dữ liệu
+</div>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div style="flex:1;display:flex;justify-content:center;align-items:center;padding:40px 24px;">
+  <div style="padding:40px 44px;width:100%;max-width:520px;">
+
+    <!-- Icon + tiêu đề -->
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="width:68px;height:68px;border-radius:18px;background:rgba(255,193,7,0.14);display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <i class="fas fa-database" style="font-size:30px;color:#e6a800;"></i>
+      </div>
+      <h2 style="font-size:20px;font-weight:800;color:#1c1a14;margin:0 0 6px;">Sao lưu dữ liệu</h2>
+      <p style="font-size:13px;color:#6b7280;margin:0;">Xuất toàn bộ dữ liệu hệ thống về máy của bạn</p>
+    </div>
+
+    <!-- Chọn nơi lưu -->
+    <div style="margin-bottom:24px;">
+      <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">
+        <i class="fas fa-folder" style="color:#e6a800;margin-right:6px;"></i>Nơi lưu file
+      </label>
+      <div style="display:flex;gap:10px;align-items:stretch;">
+        <div id="path-display"
+          style="flex:1;padding:9px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;color:#9ca3af;background:#f9fafb;display:flex;align-items:center;word-break:break-all;">
+          Chưa chọn — file sẽ tải về thư mục Downloads
+        </div>
+        <button type="button" id="btn-choose"
+          style="padding:9px 14px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:8px;font-size:13px;font-weight:600;color:#374151;cursor:pointer;white-space:nowrap;transition:background 0.15s;"
+          onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+          <i class="fas fa-folder-open"></i> Chọn
+        </button>
+      </div>
+      <p id="api-note" style="display:none;font-size:11px;color:#f59e0b;margin:6px 0 0;">
+        <i class="fas fa-exclamation-triangle"></i>
+        Trình duyệt không hỗ trợ chọn thư mục — file sẽ tự tải về Downloads.
+      </p>
+    </div>
+
+    <!-- Progress bar -->
+    <div id="progress-wrap" style="display:none;margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#6b7280;margin-bottom:6px;">
+        <span id="progress-text">Đang chuẩn bị...</span>
+        <span id="progress-pct" style="font-weight:600;">0%</span>
+      </div>
+      <div style="background:#f3f4f6;border-radius:99px;height:9px;overflow:hidden;">
+        <div id="progress-bar"
+          style="height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#ffc107,#e6a800);transition:width 0.25s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:12px;">
+      <button type="button" id="btn-backup"
+        style="flex:1;padding:12px 0;background:#ffc107;border:none;border-radius:10px;font-size:14px;font-weight:700;color:#1c1a14;cursor:pointer;box-shadow:0 4px 14px rgba(255,193,7,0.35);transition:background 0.2s;"
+        onmouseover="this.style.background='#e6a800'" onmouseout="this.style.background='#ffc107'">
+        <i class="fas fa-download"></i>&nbsp; Sao lưu
+      </button>
+      <a href="{% url 'admin:index' %}"
+        style="flex:1;padding:12px 0;background:#f3f4f6;border:1px solid #d1d5db;border-radius:10px;font-size:14px;font-weight:700;color:#374151;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:background 0.2s;"
+        onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <i class="fas fa-sign-out-alt"></i> Thoát
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Lịch sử sao lưu ── -->
+<div style="display:flex;justify-content:center;padding:0 24px 48px;">
+<div style="width:100%;max-width:640px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <div style="flex:1;height:1px;background:#e5e7eb;"></div>
+    <span style="font-size:12px;font-weight:700;color:#6b7280;letter-spacing:0.8px;white-space:nowrap;">LỊCH SỬ SAO LƯU</span>
+    <div style="flex:1;height:1px;background:#e5e7eb;"></div>
+  </div>
+
+  {% if backups %}
+  <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb;">
+          <th style="padding:10px 16px;font-size:12px;font-weight:600;color:#6b7280;text-align:left;">Tên file</th>
+          <th style="padding:10px 16px;font-size:12px;font-weight:600;color:#6b7280;text-align:left;white-space:nowrap;">Ngày sao lưu</th>
+          <th style="padding:10px 16px;font-size:12px;font-weight:600;color:#6b7280;text-align:right;">Dung lượng</th>
+          <th style="padding:10px 16px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bk in backups %}
+        <tr style="border-bottom:1px solid #f3f4f6;{% if forloop.last %}border-bottom:none;{% endif %}">
+          <td style="padding:11px 16px;font-size:13px;color:#374151;font-family:monospace;">{{ bk.name }}</td>
+          <td style="padding:11px 16px;font-size:13px;color:#6b7280;white-space:nowrap;">{{ bk.mtime }}</td>
+          <td style="padding:11px 16px;font-size:13px;color:#9ca3af;text-align:right;white-space:nowrap;">{{ bk.size }}</td>
+          <td style="padding:11px 16px;text-align:right;">
+            <a href="{% url 'admin:backup_download' bk.name %}"
+              style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:#ffc107;color:#1c1a14;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;transition:background 0.15s;"
+              onmouseover="this.style.background='#e6a800'" onmouseout="this.style.background='#ffc107'">
+              <i class="fas fa-download"></i> Tải
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:28px 0;color:#9ca3af;font-size:13px;">
+    <i class="fas fa-inbox" style="font-size:24px;display:block;margin-bottom:8px;opacity:0.4;"></i>
+    Chưa có lần sao lưu nào
+  </div>
+  {% endif %}
+</div>
+</div>
+
+<script>
+(function () {
+  const defaultName = 'backup_' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '.bak';
+  let fileHandle = null;
+
+  /* ── Chọn nơi lưu ── */
+  document.getElementById('btn-choose').addEventListener('click', async () => {
+    if ('showSaveFilePicker' in window) {
+      try {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: defaultName,
+          types: [{ description: 'Backup File', accept: { 'application/octet-stream': ['.bak'] } }],
+        });
+        const el = document.getElementById('path-display');
+        el.textContent = fileHandle.name;
+        el.style.color = '#1c1a14';
+      } catch (e) {
+        if (e.name !== 'AbortError') console.error(e);
+      }
+    } else {
+      document.getElementById('api-note').style.display = 'block';
+    }
+  });
+
+  /* ── Sao lưu ── */
+  document.getElementById('btn-backup').addEventListener('click', async () => {
+    const btnBackup  = document.getElementById('btn-backup');
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressBar  = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const progressPct  = document.getElementById('progress-pct');
+
+    btnBackup.disabled = true;
+    btnBackup.style.opacity = '0.65';
+    progressWrap.style.display = 'block';
+
+    function setProgress(pct, text) {
+      progressBar.style.width = pct + '%';
+      progressPct.textContent = pct + '%';
+      if (text) progressText.textContent = text;
+    }
+
+    setProgress(5, 'Đang chuẩn bị...');
+
+    try {
+      const csrfToken = document.cookie.split('; ')
+        .find(r => r.startsWith('csrftoken='))?.split('=')[1] || '';
+
+      const resp = await fetch(window.location.href, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+      });
+
+      if (!resp.ok) throw new Error('Lỗi server ' + resp.status);
+
+      setProgress(15, 'Đang tải xuống...');
+
+      const contentLength = parseInt(resp.headers.get('Content-Length') || '0', 10);
+      const reader = resp.body.getReader();
+      const chunks = [];
+      let loaded = 0;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        loaded += value.length;
+        const pct = contentLength
+          ? Math.round(15 + (loaded / contentLength) * 80)
+          : Math.min(90, 15 + Math.round(loaded / 8000));
+        setProgress(pct, 'Đang tải xuống...');
+      }
+
+      setProgress(98, 'Đang lưu file...');
+
+      const blob = new Blob(chunks, { type: 'application/octet-stream' });
+
+      if (fileHandle) {
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = defaultName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      setProgress(100, '✓ Sao lưu thành công!');
+      progressBar.style.background = 'linear-gradient(90deg,#22c55e,#16a34a)';
+
+    } catch (e) {
+      progressBar.style.background = 'linear-gradient(90deg,#ef4444,#dc2626)';
+      setProgress(100, '✗ Lỗi: ' + e.message);
+    } finally {
+      btnBackup.disabled = false;
+      btnBackup.style.opacity = '1';
+    }
+  });
+
+})();
+</script>
+{% endblock %}

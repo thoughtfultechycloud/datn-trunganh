@@ -6,7 +6,7 @@ from main.models import AccountCategory, CompanyBankAccount, Partner, Project
 
 
 class Invoice(models.Model):
-    invoice_number  = models.CharField(max_length=20, primary_key=True, verbose_name='Số hóa đơn GTGT')
+    invoice_number  = models.CharField(max_length=20, primary_key=True, verbose_name='Số hóa đơn')
     invoice_date    = models.DateField(verbose_name='Ngày lập hóa đơn')
     seller_unit     = models.CharField(max_length=200, blank=True, verbose_name='Đơn vị bán hàng')
     seller_address  = models.CharField(max_length=300, blank=True, verbose_name='Địa chỉ')

@@ -1,28 +1,84 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}TT công ty{% endblock %}
+{% block title %}Thông tin công ty{% endblock %}
 
-{% block content_title %}<h1>Thông tin công ty</h1>{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block extrastyle %}
+<style>
+  #content,
+  #content-main {
+    background: #343a40 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: calc(100vh - 57px);
+  }
+
+  .ct-inner {
+    width: 100%;
+    max-width: 680px;
+    padding: 36px 40px;
+  }
+
+  .ct-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+    color: #f5c842;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .ct-divider {
+    width: 56px;
+    height: 2px;
+    background: #f5c842;
+    margin: 0 auto 28px;
+    border-radius: 2px;
+    opacity: 0.65;
+  }
+
+  .ct-row {
+    font-size: 15px;
+    line-height: 1.8;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 12px;
+  }
+
+  .ct-row strong {
+    font-style: normal;
+    color: #f5c842;
+    font-weight: 600;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Thông tin công ty</h3>
-    </div>
-    <div class="card-body">
-        <table class="table table-bordered" style="max-width:700px;">
-            <tbody>
-                <tr>
-                    <th style="width:200px;color:#6b7280;font-weight:500;">Tên công ty</th>
-                    <td style="font-weight:700;">CÔNG TY CỔ PHẦN CÔNG NGHỆ AIBOX</td>
-                </tr>
-                <tr>
-                    <th style="color:#6b7280;font-weight:500;">Địa chỉ</th>
-                    <td>OF 03-06, toà OF, Vinhomes Westpoint, lô đất HH, đường Phạm Hùng, phường Mễ Trì, quận Nam Từ Liêm, thành phố Hà Nội, Việt Nam</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="ct-inner">
+
+  <div class="ct-title">THÔNG TIN CHUNG</div>
+  <div class="ct-divider"></div>
+
+  <div class="ct-row">
+    <strong>Tên công ty:</strong> Công ty Cổ phần Công nghệ AI Box
+  </div>
+  <div class="ct-row">
+    <strong>Lĩnh vực kinh doanh:</strong> Công ty Cổ phần Công nghệ AI Box là doanh nghiệp công nghệ trẻ chuyên cung cấp các giải pháp AI Camera và hệ sinh thái thị giác máy tính phục vụ an ninh, giao thông và vận hành thông minh.
+  </div>
+  <div class="ct-row">
+    <strong>Địa chỉ:</strong> OF 03-06, toà OF, Vinhomes Westpoint, lô đất HH, đường Phạm Hùng, phường Mễ Trì, quận Nam Từ Liêm, thành phố Hà Nội, Việt Nam
+  </div>
+  <div class="ct-row">
+    <strong>Ngày thành lập:</strong> 07/02/2025
+  </div>
+  <div class="ct-row">
+    <strong>Mã số thuế:</strong> 0110950808 — Thuế cơ sở 8 thành phố Hà Nội
+  </div>
+
 </div>
 {% endblock %}

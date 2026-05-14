@@ -1,0 +1,160 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Khôi phục dữ liệu{% endblock %}
+
+{% block extrastyle %}
+<style>
+  #content { display:flex; flex-direction:column; }
+  #content-main { flex:1; display:flex; flex-direction:column; }
+  .breadcrumbs { text-align:right; }
+</style>
+{% endblock %}
+
+{% block content_title %}<h1>Khôi phục dữ liệu</h1>{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Trang chủ' %}</a>
+  &rsaquo; Khôi phục dữ liệu
+</div>
+{% endblock %}
+
+{% block content %}
+<div style="flex:1;display:flex;justify-content:center;align-items:center;padding:40px 24px;">
+  <div style="padding:40px 44px;width:100%;max-width:520px;">
+
+    <!-- Icon + tiêu đề -->
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="width:68px;height:68px;border-radius:18px;background:rgba(59,130,246,0.12);display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <i class="fas fa-undo-alt" style="font-size:28px;color:#2563eb;"></i>
+      </div>
+      <h2 style="font-size:20px;font-weight:800;color:#1c1a14;margin:0 0 6px;">Khôi phục dữ liệu</h2>
+      <p style="font-size:13px;color:#6b7280;margin:0;">Tải lên file <code>.bak</code> để khôi phục toàn bộ dữ liệu</p>
+    </div>
+
+    <!-- Cảnh báo -->
+    <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px 16px;margin-bottom:24px;display:flex;gap:10px;align-items:flex-start;">
+      <i class="fas fa-exclamation-triangle" style="color:#d97706;margin-top:2px;flex-shrink:0;"></i>
+      <span style="font-size:13px;color:#92400e;line-height:1.6;">
+        Khôi phục sẽ <strong>ghi đè toàn bộ dữ liệu hiện tại</strong>.<br>
+        Hệ thống tự động sao lưu DB hiện tại trước khi ghi đè.
+      </span>
+    </div>
+
+    <!-- Chọn file -->
+    <div style="margin-bottom:24px;">
+      <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">
+        <i class="fas fa-upload" style="color:#6b7280;margin-right:6px;"></i>Chọn file khôi phục (.bak)
+      </label>
+      <div style="display:flex;gap:10px;align-items:stretch;">
+        <div id="restore-filename"
+          style="flex:1;padding:9px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;color:#9ca3af;background:#f9fafb;display:flex;align-items:center;">
+          Chưa chọn file
+        </div>
+        <label for="restore-file-input"
+          style="padding:9px 14px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:8px;font-size:13px;font-weight:600;color:#374151;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:background 0.15s;"
+          onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+          <i class="fas fa-folder-open"></i> Chọn
+        </label>
+        <input type="file" id="restore-file-input" accept=".bak" style="display:none;">
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress-wrap" style="display:none;margin-bottom:24px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#6b7280;margin-bottom:6px;">
+        <span id="progress-text">Đang khôi phục...</span>
+      </div>
+      <div style="background:#f3f4f6;border-radius:99px;height:9px;overflow:hidden;">
+        <div id="progress-bar"
+          style="height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#3b82f6,#2563eb);transition:width 0.25s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:12px;">
+      <button type="button" id="btn-restore"
+        style="flex:1;padding:12px 0;background:#3b82f6;border:none;border-radius:10px;font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,0.3);transition:background 0.2s;"
+        onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+        <i class="fas fa-undo-alt"></i>&nbsp; Khôi phục
+      </button>
+      <a href="{% url 'admin:index' %}"
+        style="flex:1;padding:12px 0;background:#f3f4f6;border:1px solid #d1d5db;border-radius:10px;font-size:14px;font-weight:700;color:#374151;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:background 0.2s;"
+        onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <i class="fas fa-sign-out-alt"></i> Thoát
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  document.getElementById('restore-file-input').addEventListener('change', function () {
+    const el = document.getElementById('restore-filename');
+    if (this.files[0]) {
+      el.textContent = this.files[0].name;
+      el.style.color = '#1c1a14';
+    } else {
+      el.textContent = 'Chưa chọn file';
+      el.style.color = '#9ca3af';
+    }
+  });
+
+  document.getElementById('btn-restore').addEventListener('click', async () => {
+    const fileInput = document.getElementById('restore-file-input');
+    if (!fileInput.files.length) {
+      alert('Vui lòng chọn file .bak để khôi phục.');
+      return;
+    }
+    if (!confirm('Bạn chắc chắn muốn khôi phục? Dữ liệu hiện tại sẽ bị ghi đè.')) return;
+
+    const btn          = document.getElementById('btn-restore');
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressBar  = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    btn.disabled = true;
+    btn.style.opacity = '0.65';
+    progressWrap.style.display = 'block';
+    progressBar.style.width = '20%';
+    progressText.textContent = 'Đang tải lên...';
+
+    try {
+      const csrfToken = document.cookie.split('; ')
+        .find(r => r.startsWith('csrftoken='))?.split('=')[1] || '';
+
+      const formData = new FormData();
+      formData.append('backup_file', fileInput.files[0]);
+
+      progressBar.style.width = '55%';
+      progressText.textContent = 'Đang xử lý...';
+
+      const resp = await fetch(window.location.href, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+        body: formData,
+      });
+
+      progressBar.style.width = '85%';
+      const data = await resp.json();
+
+      if (!resp.ok || data.error) throw new Error(data.error || 'Lỗi server');
+
+      progressBar.style.width = '100%';
+      progressBar.style.background = 'linear-gradient(90deg,#22c55e,#16a34a)';
+      progressText.textContent = '✓ Khôi phục thành công! Hãy tải lại trang để áp dụng dữ liệu mới.';
+
+    } catch (e) {
+      progressBar.style.background = 'linear-gradient(90deg,#ef4444,#dc2626)';
+      progressBar.style.width = '100%';
+      progressText.textContent = '✗ Lỗi: ' + e.message;
+    } finally {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }
+  });
+})();
+</script>
+{% endblock %}

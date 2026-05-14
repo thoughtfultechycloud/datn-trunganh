@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ledger',
     'report',
     'info',
+    'backup.apps.BackupConfig',
 ]
 
 
@@ -150,10 +151,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
     "site_logo": None,
-    "site_icon": "images/logo.svg",
-    "login_logo": "images/logo.svg",
+    "site_icon": "images/logo.png",
+    "login_logo": "images/logo.png",
     "site_brand": "AIBox",
-    "welcome_sign": "AIBox - Quản lí chi phí dự án",
+    "welcome_sign": "PHẦN MỀM KẾ TOÁN CHI PHÍ DỰ ÁN TẠI CÔNG TY CỔ PHẦN CÔNG NGHỆ AI BOX",
     "copyright": "AIBox Company",
     "topmenu_links": [
         {"name": "Dashboard", "url": "/dashboard/", "permissions": ["auth.view_user"]},
@@ -167,6 +168,9 @@ JAZZMIN_SETTINGS = {
         "main.bank",
         "main.companybankaccount",
         "main.accountcategory",
+        "backup",
+        "backup.backup",
+        "backup.restore",
         "opening",
         "opening.sodudauki",
         "voucher",
@@ -222,6 +226,9 @@ JAZZMIN_SETTINGS = {
         "info":                        "fas fa-info-circle",
         "info.ttcongty":               "fas fa-building",
         "info.hdsd":                   "fas fa-question-circle",
+        "backup":                      "fas fa-save",
+        "backup.backup":               "fas fa-database",
+        "backup.restore":              "fas fa-undo-alt",
     },
 }
 JAZZMIN_UI_TWEAKS = {
