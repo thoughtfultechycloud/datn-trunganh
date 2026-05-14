@@ -4,6 +4,25 @@
 {% block content_title %}<h1>Báo cáo nợ phải thu</h1>{% endblock %}
 
 {% block content %}
-{% include "report/_bao_cao_no_form.html" %}
-{% if show_result %}{% include "report/_bao_cao_no_table.html" %}{% endif %}
+<div style="width:100%;">
+  <div class="card card-primary card-outline">
+    <div class="card-body">
+      <form method="get" class="form-inline flex-wrap" style="gap:12px;">
+        <div class="form-group">
+          <label class="mr-2">Từ ngày</label>
+          <input type="date" name="tu_ngay" class="form-control form-control-sm" value="{{ tu_ngay }}" required>
+        </div>
+        <div class="form-group">
+          <label class="mr-2">Đến ngày</label>
+          <input type="date" name="den_ngay" class="form-control form-control-sm" value="{{ den_ngay }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+          <i class="fas fa-search"></i> Xem
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {% if show_result %}{% include "report/_bao_cao_no_table.html" %}{% endif %}
+</div>
 {% endblock %}

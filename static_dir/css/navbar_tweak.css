@@ -7,6 +7,15 @@ a.historylink,
     display: none !important;
 }
 
+/* Full-width content area */
+.content-wrapper > .content {
+    padding: 10px 12px !important;
+}
+.content-wrapper > .content > .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 /* Child menu item đang active */
 .nav-sidebar .nav-treeview .nav-link.active,
 .nav-sidebar .nav-treeview .nav-item.active > .nav-link {

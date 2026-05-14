@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from main.models import AccountCategory, PartnerOpeningBalance, Project
-from voucher.models import BankNotice, Voucher
+from voucher.models import BankNotice, Invoice, Voucher
 
 
 def get_bao_cao_no_context(request):
@@ -76,6 +76,20 @@ def get_bao_cao_no_context(request):
     for n in notices:
         add_ps(n.partner, n.amount, n.debit_account_id == account_id)
 
+    invoices = Invoice.objects.filter(
+        Q(debit_account_id=account_id) | Q(credit_account_id=account_id) |
+        Q(vat_debit_account_id=account_id) | Q(vat_credit_account_id=account_id),
+        invoice_date__gte=tu_ngay,
+        invoice_date__lte=den_ngay,
+    ).select_related('partner')
+
+    for inv in invoices:
+        if inv.debit_account_id == account_id or inv.credit_account_id == account_id:
+            add_ps(inv.partner, inv.total_amount, inv.debit_account_id == account_id)
+        if inv.vat_10 and (inv.vat_debit_account_id == account_id or inv.vat_credit_account_id == account_id):
+            vat_amt = inv.total_amount * Decimal('0.10')
+            add_ps(inv.partner, vat_amt, inv.vat_debit_account_id == account_id)
+
     # --- Tổng hợp theo đối tác ---
     all_partners = set(ob_map) | set(ps_map)
     rows = []
@@ -128,6 +142,8 @@ def _fmt_date(d):
 
 @staff_member_required
 def bao_cao_no_pt(request):
+    request.GET = request.GET.copy()
+    request.GET['account'] = '131'
     ctx = {**admin.site.each_context(request), **get_bao_cao_no_context(request)}
     return render(request, 'report/bao_cao_no_pt.html', ctx)
 
@@ -136,6 +152,8 @@ def bao_cao_no_pt(request):
 def xuat_bao_cao_no_pt(request):
     from docxtpl import DocxTemplate
 
+    request.GET = request.GET.copy()
+    request.GET['account'] = '131'
     data = get_bao_cao_no_context(request)
     if not data.get('show_result'):
         from django.http import HttpResponseBadRequest
@@ -181,8 +199,58 @@ def xuat_bao_cao_no_pt(request):
 
 @staff_member_required
 def bao_cao_no_ptra(request):
+    request.GET = request.GET.copy()
+    request.GET['account'] = '331'
     ctx = {**admin.site.each_context(request), **get_bao_cao_no_context(request)}
     return render(request, 'report/bao_cao_no_ptra.html', ctx)
+
+
+@staff_member_required
+def xuat_bao_cao_no_ptra(request):
+    from docxtpl import DocxTemplate
+
+    request.GET = request.GET.copy()
+    request.GET['account'] = '331'
+    data = get_bao_cao_no_context(request)
+    if not data.get('show_result'):
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('Thiếu tham số lọc.')
+
+    rows = [
+        {
+            'doi_tuong': r['partner'],
+            'no_dau':    _fmt(r['no_dau'])  if r['no_dau']  else '',
+            'co_dau':    _fmt(r['co_dau'])  if r['co_dau']  else '',
+            'ps_no':     _fmt(r['ps_no'])   if r['ps_no']   else '',
+            'ps_co':     _fmt(r['ps_co'])   if r['ps_co']   else '',
+            'no_cuoi':   _fmt(r['no_cuoi']) if r['no_cuoi'] else '',
+            'co_cuoi':   _fmt(r['co_cuoi']) if r['co_cuoi'] else '',
+        }
+        for r in data['rows']
+    ]
+    tong = data['tong']
+
+    tpl = DocxTemplate('templates/file_templates/template_bao_cao_cong_no.docx')
+    tpl.render({
+        'tai_khoan':    data['selected_account'],
+        'tu_ngay':      _fmt_date(data['tu_ngay']),
+        'den_ngay':     _fmt_date(data['den_ngay']),
+        'rows':         rows,
+        'tong_no_dau':  _fmt(tong['no_dau']),
+        'tong_co_dau':  _fmt(tong['co_dau']),
+        'tong_ps_no':   _fmt(tong['ps_no']),
+        'tong_ps_co':   _fmt(tong['ps_co']),
+        'tong_no_cuoi': _fmt(tong['no_cuoi']),
+        'tong_co_cuoi': _fmt(tong['co_cuoi']),
+    })
+
+    buf = io.BytesIO()
+    tpl.save(buf)
+    buf.seek(0)
+
+    response = HttpResponse(buf, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = 'attachment; filename="bao_cao_no_ptra_331.docx"'
+    return response
 
 
 def get_bang_ke_chi_tien_context(request):

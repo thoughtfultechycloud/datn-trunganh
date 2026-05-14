@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.shortcuts import render
+from django.urls import reverse
 
 from .models import BaoCaoNoPT, BaoCaoNoPTra, BangKeChiTien
 from .views import get_bao_cao_no_context, get_bang_ke_chi_tien_context
@@ -29,13 +30,21 @@ class BaseReportAdmin(admin.ModelAdmin):
 @admin.register(BaoCaoNoPT)
 class BaoCaoNoPTAdmin(BaseReportAdmin):
     def changelist_view(self, request, extra_context=None):
-        return self._render(request, 'report/bao_cao_no_pt.html', get_bao_cao_no_context(request))
+        request.GET = request.GET.copy()
+        request.GET['account'] = '131'
+        ctx = get_bao_cao_no_context(request)
+        ctx['export_url'] = reverse('report_xuat_no_pt')
+        return self._render(request, 'report/bao_cao_no_pt.html', ctx)
 
 
 @admin.register(BaoCaoNoPTra)
 class BaoCaoNoPTraAdmin(BaseReportAdmin):
     def changelist_view(self, request, extra_context=None):
-        return self._render(request, 'report/bao_cao_no_ptra.html', get_bao_cao_no_context(request))
+        request.GET = request.GET.copy()
+        request.GET['account'] = '331'
+        ctx = get_bao_cao_no_context(request)
+        ctx['export_url'] = reverse('report_xuat_no_ptra')
+        return self._render(request, 'report/bao_cao_no_ptra.html', ctx)
 
 
 @admin.register(BangKeChiTien)
