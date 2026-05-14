@@ -111,10 +111,72 @@ def get_bao_cao_no_context(request):
     return ctx
 
 
+def _fmt(value):
+    try:
+        return f"{int(value):,}".replace(',', '.')
+    except (TypeError, ValueError):
+        return ''
+
+
+def _fmt_date(d):
+    try:
+        from datetime import datetime
+        return datetime.strptime(d, '%Y-%m-%d').strftime('%d/%m/%Y')
+    except (ValueError, TypeError):
+        return d
+
+
 @staff_member_required
 def bao_cao_no_pt(request):
     ctx = {**admin.site.each_context(request), **get_bao_cao_no_context(request)}
     return render(request, 'report/bao_cao_no_pt.html', ctx)
+
+
+@staff_member_required
+def xuat_bao_cao_no_pt(request):
+    from docxtpl import DocxTemplate
+
+    data = get_bao_cao_no_context(request)
+    if not data.get('show_result'):
+        from django.http import HttpResponseBadRequest
+        return HttpResponseBadRequest('Thiếu tham số lọc.')
+
+    rows = [
+        {
+            'doi_tuong': r['partner'],
+            'no_dau':    _fmt(r['no_dau'])  if r['no_dau']  else '',
+            'co_dau':    _fmt(r['co_dau'])  if r['co_dau']  else '',
+            'ps_no':     _fmt(r['ps_no'])   if r['ps_no']   else '',
+            'ps_co':     _fmt(r['ps_co'])   if r['ps_co']   else '',
+            'no_cuoi':   _fmt(r['no_cuoi']) if r['no_cuoi'] else '',
+            'co_cuoi':   _fmt(r['co_cuoi']) if r['co_cuoi'] else '',
+        }
+        for r in data['rows']
+    ]
+    tong = data['tong']
+
+    tpl = DocxTemplate('templates/file_templates/template_bao_cao_cong_no.docx')
+    tpl.render({
+        'tai_khoan': data['selected_account'],
+        'tu_ngay':   _fmt_date(data['tu_ngay']),
+        'den_ngay':  _fmt_date(data['den_ngay']),
+        'rows':      rows,
+        'tong_no_dau':  _fmt(tong['no_dau']),
+        'tong_co_dau':  _fmt(tong['co_dau']),
+        'tong_ps_no':   _fmt(tong['ps_no']),
+        'tong_ps_co':   _fmt(tong['ps_co']),
+        'tong_no_cuoi': _fmt(tong['no_cuoi']),
+        'tong_co_cuoi': _fmt(tong['co_cuoi']),
+    })
+
+    buf = io.BytesIO()
+    tpl.save(buf)
+    buf.seek(0)
+
+    account_id = data['selected_account']
+    response = HttpResponse(buf, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="bao_cao_no_pt_{account_id}.docx"'
+    return response
 
 
 @staff_member_required
@@ -207,8 +269,8 @@ def xuat_bang_ke_chi_tien(request):
     tpl = DocxTemplate('templates/file_templates/template_bang_ke_chi_tien.docx')
     tpl.render({
         'du_an':     str(data['project_obj']) if data['project_obj'] else '',
-        'tu_ngay':   data['tu_ngay'],
-        'den_ngay':  data['den_ngay'],
+        'tu_ngay':   _fmt_date(data['tu_ngay']),
+        'den_ngay':  _fmt_date(data['den_ngay']),
         'rows':      rows,
         'tong_tien': f"{data['tong_tien']:,.0f}".replace(',', '.'),
     })

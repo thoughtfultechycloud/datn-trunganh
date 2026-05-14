@@ -1,6 +1,10 @@
   <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Kết quả — TK {{ selected_account }}</h3>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="card-title mr-auto">Kết quả — TK {{ selected_account }}</h3>
+      <a href="{% url 'report_xuat_no_pt' %}?account={{ selected_account }}&tu_ngay={{ tu_ngay }}&den_ngay={{ den_ngay }}"
+         class="btn btn-sm btn-warning font-weight-bold" style="white-space:nowrap;">
+        <i class="fas fa-file-word mr-1"></i> Xuất
+      </a>
     </div>
     <div class="card-body p-0">
       <table class="table table-bordered table-hover table-sm mb-0">

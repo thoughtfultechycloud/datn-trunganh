@@ -194,6 +194,14 @@ def _fmt(value):
         return ''
 
 
+def _fmt_date(d):
+    try:
+        from datetime import datetime
+        return datetime.strptime(d, '%Y-%m-%d').strftime('%d/%m/%Y')
+    except (ValueError, TypeError):
+        return d
+
+
 @staff_member_required
 def xuat_so_cai_tk(request):
     from docxtpl import DocxTemplate
@@ -221,8 +229,8 @@ def xuat_so_cai_tk(request):
     tpl.render({
         'tai_khoan': account_id,
         'ten_tai_khoan': data['account_name'],
-        'tu_ngay':   data['tu_ngay'],
-        'den_ngay':  data['den_ngay'],
+        'tu_ngay':   _fmt_date(data['tu_ngay']),
+        'den_ngay':  _fmt_date(data['den_ngay']),
         'no_dau':    _fmt(data['no_dau']),
         'co_dau':    _fmt(data['co_dau']),
         'rows':      rows,
