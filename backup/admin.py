@@ -1,5 +1,6 @@
-import io
-import shutil
+import os
+import subprocess
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -11,14 +12,32 @@ from django.urls import path
 
 from .models import Backup, Restore
 
-SQLITE_MAGIC = b'SQLite format 3\x00'
+PGDUMP_MAGIC = b'PGDMP'
 BACKUP_DIR = Path(settings.BASE_DIR) / 'backups'
+
+
+def _db_env():
+    db = settings.DATABASES['default']
+    return {
+        **os.environ,
+        'PGPASSWORD': db.get('PASSWORD', ''),
+    }
+
+
+def _db_args():
+    db = settings.DATABASES['default']
+    return [
+        '-h', db.get('HOST', 'localhost'),
+        '-p', str(db.get('PORT', '5432')),
+        '-U', db.get('USER', 'postgres'),
+        '-d', db.get('NAME', 'postgres'),
+    ]
 
 
 def _list_backups():
     if not BACKUP_DIR.exists():
         return []
-    files = sorted(BACKUP_DIR.glob('*.bak'), key=lambda f: f.stat().st_mtime, reverse=True)
+    files = sorted(BACKUP_DIR.glob('*.dump'), key=lambda f: f.stat().st_mtime, reverse=True)
     result = []
     for f in files:
         stat = f.stat()
@@ -51,11 +70,27 @@ class BackupAdmin(admin.ModelAdmin):
     def backup_page(self, request):
         if request.method == 'POST':
             BACKUP_DIR.mkdir(exist_ok=True)
-            db_path = settings.DATABASES['default']['NAME']
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = f'backup_{timestamp}.bak'
+            filename = f'backup_{timestamp}.dump'
             dest = BACKUP_DIR / filename
-            shutil.copy2(db_path, dest)
+
+            try:
+                subprocess.run(
+                    ['pg_dump', '-Fc', '-f', str(dest)] + _db_args(),
+                    env=_db_env(),
+                    check=True,
+                    capture_output=True,
+                )
+            except FileNotFoundError:
+                return JsonResponse(
+                    {'error': 'Không tìm thấy pg_dump. Hãy cài postgresql-client hoặc rebuild Docker image.'},
+                    status=500,
+                )
+            except subprocess.CalledProcessError as e:
+                return JsonResponse(
+                    {'error': f'pg_dump thất bại: {e.stderr.decode(errors="replace")}'},
+                    status=500,
+                )
 
             content = dest.read_bytes()
             response = HttpResponse(content, content_type='application/octet-stream')
@@ -69,9 +104,9 @@ class BackupAdmin(admin.ModelAdmin):
         return render(request, 'admin/backup.html', context)
 
     def download_backup(self, request, filename):
-        filename = Path(filename).name  # chống path traversal
+        filename = Path(filename).name
         filepath = BACKUP_DIR / filename
-        if not filepath.exists() or filepath.suffix != '.bak':
+        if not filepath.exists() or filepath.suffix != '.dump':
             raise Http404
         content = filepath.read_bytes()
         response = HttpResponse(content, content_type='application/octet-stream')
@@ -99,15 +134,44 @@ class RestoreAdmin(admin.ModelAdmin):
                 return JsonResponse({'error': 'Không tìm thấy file.'}, status=400)
 
             content = uploaded.read()
-            if not content.startswith(SQLITE_MAGIC):
-                return JsonResponse({'error': 'File không hợp lệ — không phải SQLite database.'}, status=400)
+            if not content.startswith(PGDUMP_MAGIC):
+                return JsonResponse(
+                    {'error': 'File không hợp lệ — không phải pg_dump custom format.'},
+                    status=400,
+                )
 
-            db_path = settings.DATABASES['default']['NAME']
+            # Auto-backup trước khi khôi phục
+            BACKUP_DIR.mkdir(exist_ok=True)
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            shutil.copy2(db_path, str(db_path) + f'.before_restore_{timestamp}')
+            auto_dest = BACKUP_DIR / f'auto_before_restore_{timestamp}.dump'
+            try:
+                subprocess.run(
+                    ['pg_dump', '-Fc', '-f', str(auto_dest)] + _db_args(),
+                    env=_db_env(),
+                    check=True,
+                    capture_output=True,
+                )
+            except subprocess.CalledProcessError:
+                pass  # không chặn restore nếu auto-backup thất bại
 
-            with open(db_path, 'wb') as f:
-                f.write(content)
+            with tempfile.NamedTemporaryFile(suffix='.dump', delete=False) as tmp:
+                tmp.write(content)
+                tmp_path = tmp.name
+
+            try:
+                subprocess.run(
+                    ['pg_restore', '--clean', '--if-exists', '-Fc'] + _db_args() + [tmp_path],
+                    env=_db_env(),
+                    check=True,
+                    capture_output=True,
+                )
+            except subprocess.CalledProcessError as e:
+                return JsonResponse(
+                    {'error': f'pg_restore thất bại: {e.stderr.decode(errors="replace")}'},
+                    status=500,
+                )
+            finally:
+                os.unlink(tmp_path)
 
             return JsonResponse({'ok': True})
 

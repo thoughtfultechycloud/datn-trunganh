@@ -1,4 +1,19 @@
 services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aibox
+      POSTGRES_USER: aibox
+      POSTGRES_PASSWORD: aibox123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aibox -d aibox"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   web:
     build: .
     ports:
@@ -8,6 +23,17 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DJANGO_SETTINGS_MODULE=core.settings
+      - DB_NAME=aibox
+      - DB_USER=aibox
+      - DB_PASSWORD=aibox123
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  postgres_data:

@@ -1,0 +1,2504 @@
+[
+{
+  "model": "main.accountcategory",
+  "pk": "111",
+  "fields": {
+    "account_name": "Tiền mặt",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "1111",
+  "fields": {
+    "account_name": "Tiền Việt Nam",
+    "parent": "111",
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "1112",
+  "fields": {
+    "account_name": "Ngoại tệ",
+    "parent": "111",
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "1113",
+  "fields": {
+    "account_name": "Vàng tiền tệ",
+    "parent": "111",
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "112",
+  "fields": {
+    "account_name": "Tiền gửi ngân hàng",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "113",
+  "fields": {
+    "account_name": "Tiền đang chuyển",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "131",
+  "fields": {
+    "account_name": "Tiền mặt",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "1331",
+  "fields": {
+    "account_name": "VAT nợ",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.accountcategory",
+  "pk": "331",
+  "fields": {
+    "account_name": "VAT có",
+    "parent": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.partner",
+  "pk": "KH001",
+  "fields": {
+    "partner_name": "Tổng Công ty Đầu tư Phát triển Đô thị",
+    "partner_type": "KH",
+    "address": "Hà Nội",
+    "tax_code": "0100100001",
+    "email": "contact@udic.vn",
+    "phone": "",
+    "representative": "",
+    "debt_limit": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "main.partner",
+  "pk": "KH002",
+  "fields": {
+    "partner_name": "Công ty CP Đầu tư Xây dựng Hoà Bình",
+    "partner_type": "KH",
+    "address": "TP. HCM",
+    "tax_code": "0300100002",
+    "email": "info@hoabinhgroup.vn",
+    "phone": "",
+    "representative": "",
+    "debt_limit": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "main.partner",
+  "pk": "KH003",
+  "fields": {
+    "partner_name": "Tổng Công ty Vinaconex",
+    "partner_type": "KH",
+    "address": "Hà Nội",
+    "tax_code": "0100100003",
+    "email": "info@vinaconex.vn",
+    "phone": "",
+    "representative": "",
+    "debt_limit": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "main.partner",
+  "pk": "KH004",
+  "fields": {
+    "partner_name": "Công ty CP Đầu tư Hạ tầng Kỹ thuật TP.HCM",
+    "partner_type": "KH",
+    "address": "TP. HCM",
+    "tax_code": "0300100004",
+    "email": "citenco@hcm.vn",
+    "phone": "",
+    "representative": "",
+    "debt_limit": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "main.partner",
+  "pk": "KH005",
+  "fields": {
+    "partner_name": "Ban Quản lý Dự án Đầu tư Xây dựng Đà Nẵng",
+    "partner_type": "KH",
+    "address": "Đà Nẵng",
+    "tax_code": "0400100005",
+    "email": "bql@danang.gov.vn",
+    "phone": "",
+    "representative": "",
+    "debt_limit": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "main.bank",
+  "pk": "TCB",
+  "fields": {
+    "bank_name": "Techcombank",
+    "branch": "Liễu Giai",
+    "address": "Liễu Giai, Ba Đình, Hà Nội",
+    "is_active": true
+  }
+},
+{
+  "model": "main.bank",
+  "pk": "VCB",
+  "fields": {
+    "bank_name": "Vietcombank",
+    "branch": "Hai Bà Trưng",
+    "address": "Hai Bà Trưng - Hà Nội",
+    "is_active": true
+  }
+},
+{
+  "model": "main.companybankaccount",
+  "pk": "9000088888",
+  "fields": {
+    "account_holder": "Triệu Tuyên Hoàng",
+    "bank": "TCB",
+    "currency": "VND",
+    "balance": "100000.00",
+    "is_active": true
+  }
+},
+{
+  "model": "voucher.invoice",
+  "pk": "HD001",
+  "fields": {
+    "invoice_date": "2026-05-11",
+    "seller_unit": "",
+    "seller_address": "",
+    "reason": "",
+    "partner": "KH001",
+    "tax_code": "",
+    "address": "",
+    "contact_person": "",
+    "description": "",
+    "project": "DA001",
+    "total_amount": "1000000.00",
+    "debit_account": null,
+    "credit_account": null,
+    "vat_10": false,
+    "vat_debit_account": null,
+    "vat_credit_account": null
+  }
+},
+{
+  "model": "voucher.invoice",
+  "pk": "HD002",
+  "fields": {
+    "invoice_date": "2026-05-12",
+    "seller_unit": "Ha Noi Computer",
+    "seller_address": "Ha Noi",
+    "reason": "Mua thiet bi",
+    "partner": "KH001",
+    "tax_code": "034000000999",
+    "address": "Hà Nội",
+    "contact_person": "Nguyễn Văn C",
+    "description": "Mua vật tư giai đoạn 2",
+    "project": "DA001",
+    "total_amount": "10500000.00",
+    "debit_account": "131",
+    "credit_account": "112",
+    "vat_10": true,
+    "vat_debit_account": "1331",
+    "vat_credit_account": "331"
+  }
+},
+{
+  "model": "voucher.invoicelineitem",
+  "pk": 1,
+  "fields": {
+    "invoice": "HD002",
+    "item_name": "Máy tính",
+    "amount": "10000000.00"
+  }
+},
+{
+  "model": "voucher.invoicelineitem",
+  "pk": 2,
+  "fields": {
+    "invoice": "HD002",
+    "item_name": "Chuột",
+    "amount": "500000.00"
+  }
+},
+{
+  "model": "voucher.voucher",
+  "pk": "PC001",
+  "fields": {
+    "voucher_type": "PC",
+    "voucher_date": "2026-05-11",
+    "partner": "KH001",
+    "project": "DA001",
+    "debit_account": "131",
+    "credit_account": "112",
+    "amount": "10000000.00",
+    "bank_account": null,
+    "reason": "Tiền mua vật tư đợt 1",
+    "created_by": "Nguyên Văn B"
+  }
+},
+{
+  "model": "voucher.voucher",
+  "pk": "PT001",
+  "fields": {
+    "voucher_type": "PT",
+    "voucher_date": "2026-05-11",
+    "partner": "KH001",
+    "project": "DA001",
+    "debit_account": "111",
+    "credit_account": "112",
+    "amount": "100000000.00",
+    "bank_account": null,
+    "reason": "Thu tiền đợt 1",
+    "created_by": "Nguyễn Văn A"
+  }
+},
+{
+  "model": "voucher.voucher",
+  "pk": "PT002",
+  "fields": {
+    "voucher_type": "PT",
+    "voucher_date": "2026-05-12",
+    "partner": "KH002",
+    "project": "DA002",
+    "debit_account": "111",
+    "credit_account": "112",
+    "amount": "100000000.00",
+    "bank_account": null,
+    "reason": "Thu tiền đợt 1",
+    "created_by": "Nguyễn Văn A"
+  }
+},
+{
+  "model": "voucher.banknotice",
+  "pk": "GBC001",
+  "fields": {
+    "notice_type": "GBC",
+    "notice_date": "2026-05-11",
+    "partner": "KH001",
+    "project": "DA001",
+    "debit_account": "111",
+    "credit_account": "112",
+    "amount": "1000000.00",
+    "exchange_rate": "1.0000",
+    "from_bank_account": null,
+    "to_bank_account": "",
+    "description": "Chuyển tiền đến",
+    "linked_voucher": null
+  }
+},
+{
+  "model": "voucher.banknotice",
+  "pk": "GBN001",
+  "fields": {
+    "notice_type": "GBN",
+    "notice_date": "2026-05-11",
+    "partner": "KH001",
+    "project": "DA001",
+    "debit_account": "112",
+    "credit_account": "111",
+    "amount": "1000000.00",
+    "exchange_rate": "1.0000",
+    "from_bank_account": null,
+    "to_bank_account": "9999988888",
+    "description": "Chuyển tiền giao dịch 1",
+    "linked_voucher": null
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "add_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "change_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "delete_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view site",
+    "content_type": [
+      "sites",
+      "site"
+    ],
+    "codename": "view_site"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "add_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "change_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "delete_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view email address",
+    "content_type": [
+      "account",
+      "emailaddress"
+    ],
+    "codename": "view_emailaddress"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "add_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "change_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "delete_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view email confirmation",
+    "content_type": [
+      "account",
+      "emailconfirmation"
+    ],
+    "codename": "view_emailconfirmation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "add_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "change_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "delete_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social account",
+    "content_type": [
+      "socialaccount",
+      "socialaccount"
+    ],
+    "codename": "view_socialaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "add_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "change_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "delete_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social application",
+    "content_type": [
+      "socialaccount",
+      "socialapp"
+    ],
+    "codename": "view_socialapp"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "add_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "change_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "delete_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view social application token",
+    "content_type": [
+      "socialaccount",
+      "socialtoken"
+    ],
+    "codename": "view_socialtoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Tài khoản kế toán",
+    "content_type": [
+      "main",
+      "accountcategory"
+    ],
+    "codename": "add_accountcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Tài khoản kế toán",
+    "content_type": [
+      "main",
+      "accountcategory"
+    ],
+    "codename": "change_accountcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Tài khoản kế toán",
+    "content_type": [
+      "main",
+      "accountcategory"
+    ],
+    "codename": "delete_accountcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Tài khoản kế toán",
+    "content_type": [
+      "main",
+      "accountcategory"
+    ],
+    "codename": "view_accountcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Đối tác",
+    "content_type": [
+      "main",
+      "partner"
+    ],
+    "codename": "add_partner"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Đối tác",
+    "content_type": [
+      "main",
+      "partner"
+    ],
+    "codename": "change_partner"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Đối tác",
+    "content_type": [
+      "main",
+      "partner"
+    ],
+    "codename": "delete_partner"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Đối tác",
+    "content_type": [
+      "main",
+      "partner"
+    ],
+    "codename": "view_partner"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Tài khoản ngân hàng",
+    "content_type": [
+      "main",
+      "companybankaccount"
+    ],
+    "codename": "add_companybankaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Tài khoản ngân hàng",
+    "content_type": [
+      "main",
+      "companybankaccount"
+    ],
+    "codename": "change_companybankaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Tài khoản ngân hàng",
+    "content_type": [
+      "main",
+      "companybankaccount"
+    ],
+    "codename": "delete_companybankaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Tài khoản ngân hàng",
+    "content_type": [
+      "main",
+      "companybankaccount"
+    ],
+    "codename": "view_companybankaccount"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Ngân hàng",
+    "content_type": [
+      "main",
+      "bank"
+    ],
+    "codename": "add_bank"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Ngân hàng",
+    "content_type": [
+      "main",
+      "bank"
+    ],
+    "codename": "change_bank"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Ngân hàng",
+    "content_type": [
+      "main",
+      "bank"
+    ],
+    "codename": "delete_bank"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Ngân hàng",
+    "content_type": [
+      "main",
+      "bank"
+    ],
+    "codename": "view_bank"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Dự án",
+    "content_type": [
+      "main",
+      "project"
+    ],
+    "codename": "add_project"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Dự án",
+    "content_type": [
+      "main",
+      "project"
+    ],
+    "codename": "change_project"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Dự án",
+    "content_type": [
+      "main",
+      "project"
+    ],
+    "codename": "delete_project"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Dự án",
+    "content_type": [
+      "main",
+      "project"
+    ],
+    "codename": "view_project"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Hạng mục chi phí",
+    "content_type": [
+      "main",
+      "costcategory"
+    ],
+    "codename": "add_costcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Hạng mục chi phí",
+    "content_type": [
+      "main",
+      "costcategory"
+    ],
+    "codename": "change_costcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Hạng mục chi phí",
+    "content_type": [
+      "main",
+      "costcategory"
+    ],
+    "codename": "delete_costcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Hạng mục chi phí",
+    "content_type": [
+      "main",
+      "costcategory"
+    ],
+    "codename": "view_costcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Kế hoạch ngân sách",
+    "content_type": [
+      "budget",
+      "projectbudget"
+    ],
+    "codename": "add_projectbudget"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Kế hoạch ngân sách",
+    "content_type": [
+      "budget",
+      "projectbudget"
+    ],
+    "codename": "change_projectbudget"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Kế hoạch ngân sách",
+    "content_type": [
+      "budget",
+      "projectbudget"
+    ],
+    "codename": "delete_projectbudget"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Kế hoạch ngân sách",
+    "content_type": [
+      "budget",
+      "projectbudget"
+    ],
+    "codename": "view_projectbudget"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Biên bản nghiệm thu",
+    "content_type": [
+      "voucher",
+      "acceptancerecord"
+    ],
+    "codename": "add_acceptancerecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Biên bản nghiệm thu",
+    "content_type": [
+      "voucher",
+      "acceptancerecord"
+    ],
+    "codename": "change_acceptancerecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Biên bản nghiệm thu",
+    "content_type": [
+      "voucher",
+      "acceptancerecord"
+    ],
+    "codename": "delete_acceptancerecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Biên bản nghiệm thu",
+    "content_type": [
+      "voucher",
+      "acceptancerecord"
+    ],
+    "codename": "view_acceptancerecord"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Hóa đơn GTGT",
+    "content_type": [
+      "voucher",
+      "invoice"
+    ],
+    "codename": "add_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Hóa đơn GTGT",
+    "content_type": [
+      "voucher",
+      "invoice"
+    ],
+    "codename": "change_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Hóa đơn GTGT",
+    "content_type": [
+      "voucher",
+      "invoice"
+    ],
+    "codename": "delete_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Hóa đơn GTGT",
+    "content_type": [
+      "voucher",
+      "invoice"
+    ],
+    "codename": "view_invoice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Chi tiết hóa đơn",
+    "content_type": [
+      "voucher",
+      "invoicelineitem"
+    ],
+    "codename": "add_invoicelineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Chi tiết hóa đơn",
+    "content_type": [
+      "voucher",
+      "invoicelineitem"
+    ],
+    "codename": "change_invoicelineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Chi tiết hóa đơn",
+    "content_type": [
+      "voucher",
+      "invoicelineitem"
+    ],
+    "codename": "delete_invoicelineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Chi tiết hóa đơn",
+    "content_type": [
+      "voucher",
+      "invoicelineitem"
+    ],
+    "codename": "view_invoicelineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Hợp đồng",
+    "content_type": [
+      "voucher",
+      "contract"
+    ],
+    "codename": "add_contract"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Hợp đồng",
+    "content_type": [
+      "voucher",
+      "contract"
+    ],
+    "codename": "change_contract"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Hợp đồng",
+    "content_type": [
+      "voucher",
+      "contract"
+    ],
+    "codename": "delete_contract"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Hợp đồng",
+    "content_type": [
+      "voucher",
+      "contract"
+    ],
+    "codename": "view_contract"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Đợt thanh toán",
+    "content_type": [
+      "voucher",
+      "paymentschedule"
+    ],
+    "codename": "add_paymentschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Đợt thanh toán",
+    "content_type": [
+      "voucher",
+      "paymentschedule"
+    ],
+    "codename": "change_paymentschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Đợt thanh toán",
+    "content_type": [
+      "voucher",
+      "paymentschedule"
+    ],
+    "codename": "delete_paymentschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Đợt thanh toán",
+    "content_type": [
+      "voucher",
+      "paymentschedule"
+    ],
+    "codename": "view_paymentschedule"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucher"
+    ],
+    "codename": "add_voucher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucher"
+    ],
+    "codename": "change_voucher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucher"
+    ],
+    "codename": "delete_voucher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucher"
+    ],
+    "codename": "view_voucher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Chi tiết phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucherlineitem"
+    ],
+    "codename": "add_voucherlineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Chi tiết phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucherlineitem"
+    ],
+    "codename": "change_voucherlineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Chi tiết phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucherlineitem"
+    ],
+    "codename": "delete_voucherlineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Chi tiết phiếu thu/chi",
+    "content_type": [
+      "voucher",
+      "voucherlineitem"
+    ],
+    "codename": "view_voucherlineitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Giấy báo nợ/có",
+    "content_type": [
+      "voucher",
+      "banknotice"
+    ],
+    "codename": "add_banknotice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Giấy báo nợ/có",
+    "content_type": [
+      "voucher",
+      "banknotice"
+    ],
+    "codename": "change_banknotice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Giấy báo nợ/có",
+    "content_type": [
+      "voucher",
+      "banknotice"
+    ],
+    "codename": "delete_banknotice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Giấy báo nợ/có",
+    "content_type": [
+      "voucher",
+      "banknotice"
+    ],
+    "codename": "view_banknotice"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Số dư đầu kỳ tài khoản tổng hợp",
+    "content_type": [
+      "main",
+      "accountopeningbalance"
+    ],
+    "codename": "add_accountopeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Số dư đầu kỳ tài khoản tổng hợp",
+    "content_type": [
+      "main",
+      "accountopeningbalance"
+    ],
+    "codename": "change_accountopeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Số dư đầu kỳ tài khoản tổng hợp",
+    "content_type": [
+      "main",
+      "accountopeningbalance"
+    ],
+    "codename": "delete_accountopeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Số dư đầu kỳ tài khoản tổng hợp",
+    "content_type": [
+      "main",
+      "accountopeningbalance"
+    ],
+    "codename": "view_accountopeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Số dư nợ công nợ đầu kỳ",
+    "content_type": [
+      "main",
+      "partneropeningbalance"
+    ],
+    "codename": "add_partneropeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Số dư nợ công nợ đầu kỳ",
+    "content_type": [
+      "main",
+      "partneropeningbalance"
+    ],
+    "codename": "change_partneropeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Số dư nợ công nợ đầu kỳ",
+    "content_type": [
+      "main",
+      "partneropeningbalance"
+    ],
+    "codename": "delete_partneropeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Số dư nợ công nợ đầu kỳ",
+    "content_type": [
+      "main",
+      "partneropeningbalance"
+    ],
+    "codename": "view_partneropeningbalance"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Báo cáo công nợ",
+    "content_type": [
+      "report",
+      "debtreport"
+    ],
+    "codename": "add_debtreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Báo cáo công nợ",
+    "content_type": [
+      "report",
+      "debtreport"
+    ],
+    "codename": "change_debtreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Báo cáo công nợ",
+    "content_type": [
+      "report",
+      "debtreport"
+    ],
+    "codename": "delete_debtreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Báo cáo công nợ",
+    "content_type": [
+      "report",
+      "debtreport"
+    ],
+    "codename": "view_debtreport"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Phiếu chi",
+    "content_type": [
+      "voucher",
+      "phieuchi"
+    ],
+    "codename": "add_phieuchi"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Phiếu chi",
+    "content_type": [
+      "voucher",
+      "phieuchi"
+    ],
+    "codename": "change_phieuchi"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Phiếu chi",
+    "content_type": [
+      "voucher",
+      "phieuchi"
+    ],
+    "codename": "delete_phieuchi"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Phiếu chi",
+    "content_type": [
+      "voucher",
+      "phieuchi"
+    ],
+    "codename": "view_phieuchi"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Phiếu thu",
+    "content_type": [
+      "voucher",
+      "phieuthu"
+    ],
+    "codename": "add_phieuthu"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Phiếu thu",
+    "content_type": [
+      "voucher",
+      "phieuthu"
+    ],
+    "codename": "change_phieuthu"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Phiếu thu",
+    "content_type": [
+      "voucher",
+      "phieuthu"
+    ],
+    "codename": "delete_phieuthu"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Phiếu thu",
+    "content_type": [
+      "voucher",
+      "phieuthu"
+    ],
+    "codename": "view_phieuthu"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Giấy báo có",
+    "content_type": [
+      "voucher",
+      "giaybaoco"
+    ],
+    "codename": "add_giaybaoco"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Giấy báo có",
+    "content_type": [
+      "voucher",
+      "giaybaoco"
+    ],
+    "codename": "change_giaybaoco"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Giấy báo có",
+    "content_type": [
+      "voucher",
+      "giaybaoco"
+    ],
+    "codename": "delete_giaybaoco"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Giấy báo có",
+    "content_type": [
+      "voucher",
+      "giaybaoco"
+    ],
+    "codename": "view_giaybaoco"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Giấy báo nợ",
+    "content_type": [
+      "voucher",
+      "giaybaono"
+    ],
+    "codename": "add_giaybaono"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Giấy báo nợ",
+    "content_type": [
+      "voucher",
+      "giaybaono"
+    ],
+    "codename": "change_giaybaono"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Giấy báo nợ",
+    "content_type": [
+      "voucher",
+      "giaybaono"
+    ],
+    "codename": "delete_giaybaono"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Giấy báo nợ",
+    "content_type": [
+      "voucher",
+      "giaybaono"
+    ],
+    "codename": "view_giaybaono"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Số dư đầu kì",
+    "content_type": [
+      "opening",
+      "sodudauki"
+    ],
+    "codename": "add_sodudauki"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Số dư đầu kì",
+    "content_type": [
+      "opening",
+      "sodudauki"
+    ],
+    "codename": "change_sodudauki"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Số dư đầu kì",
+    "content_type": [
+      "opening",
+      "sodudauki"
+    ],
+    "codename": "delete_sodudauki"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Số dư đầu kì",
+    "content_type": [
+      "opening",
+      "sodudauki"
+    ],
+    "codename": "view_sodudauki"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Sổ cái TK",
+    "content_type": [
+      "ledger",
+      "socaitk"
+    ],
+    "codename": "add_socaitk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Sổ cái TK",
+    "content_type": [
+      "ledger",
+      "socaitk"
+    ],
+    "codename": "change_socaitk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Sổ cái TK",
+    "content_type": [
+      "ledger",
+      "socaitk"
+    ],
+    "codename": "delete_socaitk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Sổ cái TK",
+    "content_type": [
+      "ledger",
+      "socaitk"
+    ],
+    "codename": "view_socaitk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Sổ chi tiết TK",
+    "content_type": [
+      "ledger",
+      "sochitiettk"
+    ],
+    "codename": "add_sochitiettk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Sổ chi tiết TK",
+    "content_type": [
+      "ledger",
+      "sochitiettk"
+    ],
+    "codename": "change_sochitiettk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Sổ chi tiết TK",
+    "content_type": [
+      "ledger",
+      "sochitiettk"
+    ],
+    "codename": "delete_sochitiettk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Sổ chi tiết TK",
+    "content_type": [
+      "ledger",
+      "sochitiettk"
+    ],
+    "codename": "view_sochitiettk"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add TT công ty",
+    "content_type": [
+      "info",
+      "ttcongty"
+    ],
+    "codename": "add_ttcongty"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change TT công ty",
+    "content_type": [
+      "info",
+      "ttcongty"
+    ],
+    "codename": "change_ttcongty"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete TT công ty",
+    "content_type": [
+      "info",
+      "ttcongty"
+    ],
+    "codename": "delete_ttcongty"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view TT công ty",
+    "content_type": [
+      "info",
+      "ttcongty"
+    ],
+    "codename": "view_ttcongty"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add HDSD",
+    "content_type": [
+      "info",
+      "hdsd"
+    ],
+    "codename": "add_hdsd"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change HDSD",
+    "content_type": [
+      "info",
+      "hdsd"
+    ],
+    "codename": "change_hdsd"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete HDSD",
+    "content_type": [
+      "info",
+      "hdsd"
+    ],
+    "codename": "delete_hdsd"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view HDSD",
+    "content_type": [
+      "info",
+      "hdsd"
+    ],
+    "codename": "view_hdsd"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Báo cáo nợ phải thu",
+    "content_type": [
+      "report",
+      "baocaonopt"
+    ],
+    "codename": "add_baocaonopt"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Báo cáo nợ phải thu",
+    "content_type": [
+      "report",
+      "baocaonopt"
+    ],
+    "codename": "change_baocaonopt"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Báo cáo nợ phải thu",
+    "content_type": [
+      "report",
+      "baocaonopt"
+    ],
+    "codename": "delete_baocaonopt"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Báo cáo nợ phải thu",
+    "content_type": [
+      "report",
+      "baocaonopt"
+    ],
+    "codename": "view_baocaonopt"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Báo cáo nợ phải trả",
+    "content_type": [
+      "report",
+      "baocaonoptra"
+    ],
+    "codename": "add_baocaonoptra"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Báo cáo nợ phải trả",
+    "content_type": [
+      "report",
+      "baocaonoptra"
+    ],
+    "codename": "change_baocaonoptra"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Báo cáo nợ phải trả",
+    "content_type": [
+      "report",
+      "baocaonoptra"
+    ],
+    "codename": "delete_baocaonoptra"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Báo cáo nợ phải trả",
+    "content_type": [
+      "report",
+      "baocaonoptra"
+    ],
+    "codename": "view_baocaonoptra"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Bảng kê chi tiền",
+    "content_type": [
+      "report",
+      "bangkechitien"
+    ],
+    "codename": "add_bangkechitien"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Bảng kê chi tiền",
+    "content_type": [
+      "report",
+      "bangkechitien"
+    ],
+    "codename": "change_bangkechitien"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Bảng kê chi tiền",
+    "content_type": [
+      "report",
+      "bangkechitien"
+    ],
+    "codename": "delete_bangkechitien"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Bảng kê chi tiền",
+    "content_type": [
+      "report",
+      "bangkechitien"
+    ],
+    "codename": "view_bangkechitien"
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Kế toán trưởng",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Giám đốc",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Nhân Viên",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$FND0KNlrrcm4qMBjNv922v$UABCpAvmTYrAQPrhj4LMk7XhlaXmpQBCzLHpa590pzo=",
+    "last_login": "2026-05-14T09:48:50.202Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-04-20T08:30:51.597Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$BlkuJziXuHqL2zTcA8297a$qu8FNYCtrTB1YltEIiSvW279Ota8Uy4ABJw2eYyb7nc=",
+    "last_login": "2026-04-20T09:07:17.622Z",
+    "is_superuser": false,
+    "username": "chinhnguyen9080",
+    "first_name": "",
+    "last_name": "",
+    "email": "chinhnguyen9080@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-20T09:07:17.322Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$WPzVDOc7sbWLwkXS3xGO1O$0BYCByA7+Rz9Fhak2zqWXBe9P5QE0zuW036MjvVJYvU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "chinhnguyen90801",
+    "first_name": "Chinh",
+    "last_name": "Nguyễn",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-02T05:27:29Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "main.accountopeningbalance",
+  "pk": 1,
+  "fields": {
+    "account": "111",
+    "debit_balance": "5000000.00",
+    "credit_balance": "0.00",
+    "entry_date": "2026-05-11",
+    "entered_by": [
+      "admin"
+    ]
+  }
+},
+{
+  "model": "main.accountopeningbalance",
+  "pk": 9,
+  "fields": {
+    "account": "131",
+    "debit_balance": "0.00",
+    "credit_balance": "0.00",
+    "entry_date": "2026-05-14",
+    "entered_by": null
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA001",
+  "fields": {
+    "project_name": "Chung cư cao tầng Hoàng Mai",
+    "investor": "KH001",
+    "start_date": "2023-03-01",
+    "end_date": "2025-06-30",
+    "contract_value": "85000000000.00",
+    "location": "Quận Hoàng Mai, Hà Nội",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA002",
+  "fields": {
+    "project_name": "Khu đô thị Vinhomes Ocean Park 2",
+    "investor": "KH002",
+    "start_date": "2022-06-15",
+    "end_date": "2025-12-31",
+    "contract_value": "320000000000.00",
+    "location": "Hưng Yên",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA003",
+  "fields": {
+    "project_name": "Cầu vượt nút giao Nguyễn Văn Linh",
+    "investor": "KH005",
+    "start_date": "2023-01-10",
+    "end_date": "2024-12-31",
+    "contract_value": "95000000000.00",
+    "location": "Quận 7, TP. HCM",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA004",
+  "fields": {
+    "project_name": "Nhà máy xử lý nước thải Bình Dương",
+    "investor": "KH003",
+    "start_date": "2022-09-01",
+    "end_date": "2025-03-31",
+    "contract_value": "125000000000.00",
+    "location": "Thuận An, Bình Dương",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA005",
+  "fields": {
+    "project_name": "Trường THCS Nguyễn Trãi mở rộng",
+    "investor": "KH005",
+    "start_date": "2024-02-01",
+    "end_date": "2024-11-30",
+    "contract_value": "18500000000.00",
+    "location": "Quận Hải Châu, Đà Nẵng",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA006",
+  "fields": {
+    "project_name": "Khu công nghiệp Bắc Tiền Phong",
+    "investor": "KH001",
+    "start_date": "2023-07-01",
+    "end_date": "2026-06-30",
+    "contract_value": "210000000000.00",
+    "location": "Quảng Ninh",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA007",
+  "fields": {
+    "project_name": "Bệnh viện Đa khoa Trung ương Huế MR",
+    "investor": "KH003",
+    "start_date": "2022-04-01",
+    "end_date": "2025-09-30",
+    "contract_value": "145000000000.00",
+    "location": "TP. Huế, Thừa Thiên Huế",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA008",
+  "fields": {
+    "project_name": "Tuyến đường sắt đô thị số 3 gói 3",
+    "investor": "KH004",
+    "start_date": "2021-11-01",
+    "end_date": "2026-12-31",
+    "contract_value": "580000000000.00",
+    "location": "Hà Nội",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA009",
+  "fields": {
+    "project_name": "Cảng Liên Chiểu giai đoạn 1",
+    "investor": "KH005",
+    "start_date": "2023-10-01",
+    "end_date": "2027-03-31",
+    "contract_value": "360000000000.00",
+    "location": "Liên Chiểu, Đà Nẵng",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA010",
+  "fields": {
+    "project_name": "Khu dân cư Đại Kim – Định Công",
+    "investor": "KH002",
+    "start_date": "2022-01-15",
+    "end_date": "2024-10-31",
+    "contract_value": "72000000000.00",
+    "location": "Quận Hoàng Mai, Hà Nội",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA011",
+  "fields": {
+    "project_name": "Tổ hợp thương mại Sun Grand City",
+    "investor": "KH001",
+    "start_date": "2023-05-01",
+    "end_date": "2026-04-30",
+    "contract_value": "195000000000.00",
+    "location": "Quận 1, TP. HCM",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA012",
+  "fields": {
+    "project_name": "Nhà máy điện gió Bạc Liêu MR",
+    "investor": "KH003",
+    "start_date": "2024-01-01",
+    "end_date": "2026-01-31",
+    "contract_value": "285000000000.00",
+    "location": "Bạc Liêu",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA013",
+  "fields": {
+    "project_name": "Hầm chui Điện Biên Phủ – Lê Văn Sỹ",
+    "investor": "KH004",
+    "start_date": "2023-08-01",
+    "end_date": "2025-07-31",
+    "contract_value": "112000000000.00",
+    "location": "Quận 3, TP. HCM",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA014",
+  "fields": {
+    "project_name": "Khu tái định cư Thủ Thiêm",
+    "investor": "KH004",
+    "start_date": "2022-03-01",
+    "end_date": "2025-06-30",
+    "contract_value": "168000000000.00",
+    "location": "TP. Thủ Đức, TP. HCM",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+},
+{
+  "model": "main.project",
+  "pk": "DA015",
+  "fields": {
+    "project_name": "Trạm biến áp 500kV Vân Phong",
+    "investor": "KH003",
+    "start_date": "2023-06-01",
+    "end_date": "2025-12-31",
+    "contract_value": "98000000000.00",
+    "location": "Khánh Hòa",
+    "manager": [
+      "chinhnguyen90801"
+    ]
+  }
+}
+]

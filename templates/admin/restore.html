@@ -30,7 +30,7 @@
         <i class="fas fa-undo-alt" style="font-size:28px;color:#2563eb;"></i>
       </div>
       <h2 style="font-size:20px;font-weight:800;color:#1c1a14;margin:0 0 6px;">Khôi phục dữ liệu</h2>
-      <p style="font-size:13px;color:#6b7280;margin:0;">Tải lên file <code>.bak</code> để khôi phục toàn bộ dữ liệu</p>
+      <p style="font-size:13px;color:#6b7280;margin:0;">Tải lên file <code>.dump</code> để khôi phục toàn bộ dữ liệu</p>
     </div>
 
     <!-- Cảnh báo -->
@@ -45,7 +45,7 @@
     <!-- Chọn file -->
     <div style="margin-bottom:24px;">
       <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">
-        <i class="fas fa-upload" style="color:#6b7280;margin-right:6px;"></i>Chọn file khôi phục (.bak)
+        <i class="fas fa-upload" style="color:#6b7280;margin-right:6px;"></i>Chọn file khôi phục (.dump)
       </label>
       <div style="display:flex;gap:10px;align-items:stretch;">
         <div id="restore-filename"
@@ -57,7 +57,7 @@
           onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
           <i class="fas fa-folder-open"></i> Chọn
         </label>
-        <input type="file" id="restore-file-input" accept=".bak" style="display:none;">
+        <input type="file" id="restore-file-input" accept=".dump" style="display:none;">
       </div>
     </div>
 
@@ -105,7 +105,7 @@
   document.getElementById('btn-restore').addEventListener('click', async () => {
     const fileInput = document.getElementById('restore-file-input');
     if (!fileInput.files.length) {
-      alert('Vui lòng chọn file .bak để khôi phục.');
+      alert('Vui lòng chọn file .dump để khôi phục.');
       return;
     }
     if (!confirm('Bạn chắc chắn muốn khôi phục? Dữ liệu hiện tại sẽ bị ghi đè.')) return;

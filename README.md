@@ -15,15 +15,15 @@ techycloud9/
 ├── ledger/                 # General ledger, detailed account ledger
 ├── report/                 # Reports: receivables, payables, cash payment summary
 ├── info/                   # Company info, user guide
+├── backup/                 # Database backup and restore
 ├── templates/              # HTML templates
-│   ├── admin/              # Django Admin overrides (index, login)
+│   ├── admin/              # Django Admin overrides (index, login, backup/restore)
 │   ├── voucher/            # Voucher print templates
 │   ├── ledger/             # Ledger view templates
 │   ├── report/             # Report templates
 │   ├── info/               # Company info templates
 │   └── file_templates/     # Word (.docx) export templates
 ├── static_dir/             # Static files (CSS, JS, images)
-├── locale/                 # Translation files (EN / VI)
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -40,6 +40,7 @@ techycloud9/
 | `ledger` | General ledger and detailed account ledger — view and export to Word |
 | `report` | Receivables report, payables report, cash payment summary — export to Word |
 | `info` | Company information, user guide |
+| `backup` | Database backup (`pg_dump`) and restore (`pg_restore`) via admin UI |
 
 ---
 
@@ -58,36 +59,50 @@ git clone <repo-url>
 cd techycloud9
 ```
 
-### 2. Start the application
+### 2. Configure environment (optional)
+
+Copy the example env file and adjust values if needed:
+
+```bash
+cp .env.example .env
+```
+
+Default values work out of the box with Docker Compose.
+
+### 3. Start the application
 
 ```bash
 docker compose up --build
 ```
 
 On first run, Docker will automatically:
-- Install dependencies from `requirements.txt`
-- Run `migrate` to initialize the database
-- Start the server on port `8000`
+- Build the image (Python 3.8 + postgresql-client)
+- Start a **PostgreSQL 15** database container
+- Wait for the database to be healthy before starting the web container
+- Run `migrate` to initialize the schema
+- Start the Django dev server on port `8008`
 
-### 3. Create an admin account
+### 4. Create an admin account
 
-Open a new terminal while the container is running:
+Open a new terminal while the containers are running:
 
 ```bash
 docker compose exec web python manage.py createsuperuser
 ```
 
-### 4. (Optional) Seed sample data
+### 5. (Optional) Seed sample data
 
 ```bash
 docker compose exec web python manage.py seed
 ```
 
-### 5. Access
+Seeds: accounting categories, banks, partners, projects, company bank accounts, user groups, a sample project-manager user, and sample vouchers.
+
+### 6. Access
 
 | URL | Description |
 |-----|-------------|
-| http://localhost:8000/admin/ | Admin panel |
+| http://localhost:8008/admin/ | Admin panel |
 
 ---
 
@@ -97,7 +112,7 @@ docker compose exec web python manage.py seed
 docker compose down
 ```
 
-To also remove all data (database):
+To also remove all data (PostgreSQL volume):
 
 ```bash
 docker compose down -v
@@ -106,6 +121,8 @@ docker compose down -v
 ---
 
 ## Running without Docker (optional)
+
+Requires Python 3.8 and a running PostgreSQL 15 instance. Set DB credentials in `.env` or environment variables before running.
 
 ```bash
 python3.8 -m venv .venv
@@ -122,7 +139,8 @@ python manage.py runserver
 
 | Setting | Value |
 |---------|-------|
-| Database | SQLite (`db.sqlite3`) |
+| Database | PostgreSQL 15 (via Docker) |
+| DB credentials | Configured via `.env` (see `.env.example`) |
 | Admin theme | Jazzmin |
-| Languages | English, Vietnamese |
 | Export format | Word (.docx) via docxtpl |
+| Backup format | pg_dump custom format (`.dump`) |

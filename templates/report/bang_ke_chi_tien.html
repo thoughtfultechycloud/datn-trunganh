@@ -1,4 +1,5 @@
 {% extends "admin/base_site.html" %}
+{% load ledger_tags %}
 
 {% block title %}Bảng kê chi tiền{% endblock %}
 {% block content_title %}<h1>Bảng kê chi tiền</h1>{% endblock %}
@@ -70,7 +71,7 @@
             <td>{{ row.reason }}</td>
             <td class="text-center">{{ row.debit_account }}</td>
             <td class="text-center">{{ row.credit_account }}</td>
-            <td class="text-right">{{ row.amount|floatformat:0 }}</td>
+            <td class="text-right">{{ row.amount|vnd }}</td>
           </tr>
           {% empty %}
           <tr><td colspan="8" class="text-center text-muted">Không có dữ liệu</td></tr>
@@ -80,7 +81,7 @@
         <tfoot class="font-weight-bold">
           <tr class="table-secondary">
             <td colspan="7">Tổng cộng</td>
-            <td class="text-right">{{ tong_tien|floatformat:0 }}</td>
+            <td class="text-right">{{ tong_tien|vnd }}</td>
           </tr>
         </tfoot>
         {% endif %}

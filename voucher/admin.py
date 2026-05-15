@@ -24,6 +24,7 @@ class InvoiceAdmin(admin.ModelAdmin):
     list_filter   = ('project', 'vat_10')
     search_fields = ('invoice_number', 'partner__partner_name', 'tax_code')
     readonly_fields = ('display_total_amount', 'display_vat_amount')
+    list_per_page = 15
     inlines       = [InvoiceLineItemInline]
     fieldsets = (
         ('Thông tin phiếu', {
@@ -58,6 +59,7 @@ class BaseVoucherAdmin(admin.ModelAdmin):
     list_filter   = ('project',)
     search_fields = ('voucher_number', 'partner__partner_name', 'reason', 'created_by')
     exclude       = ('voucher_type',)
+    list_per_page = 15
 
     @admin.display(description='Số tiền (VNĐ)')
     def display_amount(self, obj):
@@ -88,6 +90,7 @@ class BaseBankNoticeAdmin(admin.ModelAdmin):
     list_filter   = ('project',)
     search_fields = ('notice_number', 'partner__partner_name', 'description', 'to_bank_account')
     exclude       = ('notice_type',)
+    list_per_page = 15
 
     @admin.display(description='Số tiền')
     def display_amount(self, obj):

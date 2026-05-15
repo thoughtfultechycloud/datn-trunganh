@@ -11,6 +11,7 @@ class SoDuDauKiAdmin(admin.ModelAdmin):
     list_display_links   = None
     list_filter          = ()
     search_fields        = ('account__account_code', 'account__account_name')
+    list_per_page        = 15
 
     def hanh_dong(self, obj):
         return format_html(

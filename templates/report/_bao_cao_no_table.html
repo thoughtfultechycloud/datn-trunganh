@@ -1,3 +1,4 @@
+{% load ledger_tags %}
   <div class="card card-outline card-primary">
     <div class="card-header d-flex align-items-center">
       <h3 class="card-title mr-auto">Kết quả — TK {{ selected_account }}</h3>
@@ -28,12 +29,12 @@
           {% for row in rows %}
           <tr>
             <td>{{ row.partner }}</td>
-            <td class="text-right">{% if row.no_dau %}{{ row.no_dau|floatformat:0 }}{% endif %}</td>
-            <td class="text-right">{% if row.co_dau %}{{ row.co_dau|floatformat:0 }}{% endif %}</td>
-            <td class="text-right">{% if row.ps_no %}{{ row.ps_no|floatformat:0 }}{% endif %}</td>
-            <td class="text-right">{% if row.ps_co %}{{ row.ps_co|floatformat:0 }}{% endif %}</td>
-            <td class="text-right">{% if row.no_cuoi %}{{ row.no_cuoi|floatformat:0 }}{% endif %}</td>
-            <td class="text-right">{% if row.co_cuoi %}{{ row.co_cuoi|floatformat:0 }}{% endif %}</td>
+            <td class="text-right">{% if row.no_dau %}{{ row.no_dau|vnd }}{% endif %}</td>
+            <td class="text-right">{% if row.co_dau %}{{ row.co_dau|vnd }}{% endif %}</td>
+            <td class="text-right">{% if row.ps_no %}{{ row.ps_no|vnd }}{% endif %}</td>
+            <td class="text-right">{% if row.ps_co %}{{ row.ps_co|vnd }}{% endif %}</td>
+            <td class="text-right">{% if row.no_cuoi %}{{ row.no_cuoi|vnd }}{% endif %}</td>
+            <td class="text-right">{% if row.co_cuoi %}{{ row.co_cuoi|vnd }}{% endif %}</td>
           </tr>
           {% empty %}
           <tr><td colspan="7" class="text-center text-muted">Không có dữ liệu</td></tr>
@@ -43,12 +44,12 @@
         <tfoot class="font-weight-bold">
           <tr class="table-secondary">
             <td>Tổng cộng</td>
-            <td class="text-right">{{ tong.no_dau|floatformat:0 }}</td>
-            <td class="text-right">{{ tong.co_dau|floatformat:0 }}</td>
-            <td class="text-right">{{ tong.ps_no|floatformat:0 }}</td>
-            <td class="text-right">{{ tong.ps_co|floatformat:0 }}</td>
-            <td class="text-right">{{ tong.no_cuoi|floatformat:0 }}</td>
-            <td class="text-right">{{ tong.co_cuoi|floatformat:0 }}</td>
+            <td class="text-right">{{ tong.no_dau|vnd }}</td>
+            <td class="text-right">{{ tong.co_dau|vnd }}</td>
+            <td class="text-right">{{ tong.ps_no|vnd }}</td>
+            <td class="text-right">{{ tong.ps_co|vnd }}</td>
+            <td class="text-right">{{ tong.no_cuoi|vnd }}</td>
+            <td class="text-right">{{ tong.co_cuoi|vnd }}</td>
           </tr>
         </tfoot>
         {% endif %}

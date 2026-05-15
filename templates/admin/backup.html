@@ -134,7 +134,7 @@
 
 <script>
 (function () {
-  const defaultName = 'backup_' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '.bak';
+  const defaultName = 'backup_' + new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14) + '.dump';
   let fileHandle = null;
 
   /* ── Chọn nơi lưu ── */
@@ -143,7 +143,7 @@
       try {
         fileHandle = await window.showSaveFilePicker({
           suggestedName: defaultName,
-          types: [{ description: 'Backup File', accept: { 'application/octet-stream': ['.bak'] } }],
+          types: [{ description: 'Backup File', accept: { 'application/octet-stream': ['.dump'] } }],
         });
         const el = document.getElementById('path-display');
         el.textContent = fileHandle.name;
@@ -185,7 +185,14 @@
         headers: { 'X-CSRFToken': csrfToken },
       });
 
-      if (!resp.ok) throw new Error('Lỗi server ' + resp.status);
+      if (!resp.ok) {
+        const ct = resp.headers.get('Content-Type') || '';
+        if (ct.includes('application/json')) {
+          const data = await resp.json();
+          throw new Error(data.error || ('Lỗi server ' + resp.status));
+        }
+        throw new Error('Lỗi server ' + resp.status);
+      }
 
       setProgress(15, 'Đang tải xuống...');
 
