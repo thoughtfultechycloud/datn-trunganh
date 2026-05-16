@@ -7,7 +7,7 @@ A Django-based construction project cost management system with Jazzmin Admin in
 ## Project Structure
 
 ```
-techycloud9/
+datn-trunganh/
 ├── core/                   # Django configuration (settings, urls, wsgi)
 ├── main/                   # Master data: projects, partners, banks, accounting categories
 ├── opening/                # Opening balances per accounting account
