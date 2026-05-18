@@ -56,7 +56,7 @@ datn-trunganh/
 
 ```bash
 git clone <repo-url>
-cd techycloud9
+cd datn-trunganh
 ```
 
 ### 2. Configure environment (optional)
